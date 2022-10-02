@@ -303,14 +303,14 @@
         <div class="card mb-3">
             <!--상품 사진-->
             <div class="text-center">
-               <img th:src="@{${file.getOrigFilename()}}" src="테스트용사진1.PNG" class="rounded" alt="..." width=400px, height=400px>
+               <img  th:src="|/static/files/${file.getOrigFilename()}|" class="rounded" alt="..." width=400px, height=400px>
             </div>
 
             <div class="card" style="width: 400px; ">
                 <div class="card-body">
                     <!--프로필 사진-->
                     <div class="box" style="background: #ffffff;">
-                        <img class="profile" src="test1.PNG" alt="...">
+                        <img class="profile" th:src="|/static/img/test1.PNG|" alt="...">
                     </div>
                     <div>
                         <h5 class="card-name" th:text="${detail.get().getNickname()}">수영하는 철새</h5>

@@ -46,7 +46,7 @@
     <p th:if="${loginError}" class="error">Wrong user or password</p>
     <!-- 로그인 시 아이디의 name 애트리뷰트 값은 username -->
     <!-- 파라미터명을 변경하고 싶을 경우 config class formlogin()에서 .usernameParameter("") 명시 -->
-    <img class="mb-4" th:src="@{/static/img/scone_logo_slime_50px.png}" alt="" width="72" height="57">
+    <img class="mb-4" th:src="|@{/static/img/scone.png}|" alt="" width="72" height="57">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
     <div class="form-floating">
       <input type="text" name="username" class="form-control" id="floatingInput" placeholder="name@example.com">

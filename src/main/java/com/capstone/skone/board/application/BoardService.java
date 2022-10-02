@@ -4,8 +4,10 @@ import com.capstone.skone.board.domain.Board;
 import com.capstone.skone.board.dto.request.CreateBoardRequest;
 import com.capstone.skone.board.dto.request.UpdateBoardRequest;
 import com.capstone.skone.board.infrastructure.BoardRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +36,10 @@ public class BoardService {
    }
 
    public List<Board> findAllBoard(){
-      return boardRepository.findAll();
+      for(Board board : boardRepository.findAll()){
+         System.out.println(board.getTitle() +"하림");
+      }
+      return new ArrayList<>(boardRepository.findAll());
    }
 
    @Transactional
