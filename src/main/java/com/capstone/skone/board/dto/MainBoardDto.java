@@ -1,4 +1,4 @@
-package com.capstone.skone.board.dto.request;
+package com.capstone.skone.board.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,11 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateBoardRequest {
+@Builder
+public class MainBoardDto {
+
+  private Long id;
   private String title;
-  private String content;
+  private String fileName;
+  private String NickName;
   private Long price;
 }

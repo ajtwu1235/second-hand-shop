@@ -1,7 +1,7 @@
 package com.capstone.skone.board.application;
 
 import com.capstone.skone.board.domain.File;
-import com.capstone.skone.board.dto.request.CreateFileRequest;
+import com.capstone.skone.board.dto.CreateFileDto;
 import com.capstone.skone.board.infrastructure.FileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,23 +13,19 @@ public class FileService {
   private final FileRepository fileRepository;
 
   @Transactional
-  public Long saveFile(CreateFileRequest fileDto) {
+  public Long saveFile(CreateFileDto fileDto) {
     return fileRepository.save(fileDto.toEntity()).getId();
   }
 
   @Transactional
-  public CreateFileRequest getFile(Long id) {
+  public CreateFileDto getFile(Long id) {
     File file = fileRepository.findById(id).get();
 
-    return CreateFileRequest.builder()
+    return CreateFileDto.builder()
         .id(id)
         .origFilename(file.getOrigFilename())
         .filename(file.getFilename())
         .filePath(file.getFilePath())
         .build();
-  }
-
-  public String getFilePath(CreateFileRequest createFileRequest){
-    return createFileRequest.getFilePath();
   }
 }

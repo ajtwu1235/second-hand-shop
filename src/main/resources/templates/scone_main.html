@@ -206,23 +206,23 @@
 <div class="album py-5 bg-light">
   <div class="container">
 
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" th:each="board:${allBoard}">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" >
 
       <!--한 문단-->
-      <div class="col">
-        <div class="card shadow-sm" th:each="files:${files}">
-          <img th:src="|/static/files/${files.getOrigFilename()}|" width="100%" height="225">
+      <div class="col" th:each="board:${mainBoards}">
+        <div class="card shadow-sm">
+          <img th:src="|/static/files/${board.getFileName()}|" width="100%" height="225">
           <div class="card-body">
             <p class="card-title-text" th:text="${board.title}">상품명</p>
-            <p class="card-text" th:text="${board.content}">게시물 설명란</p>
+            <p class="card-text" th:text="${board.nickName}">게시물 올린 사람</p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
                 <button type="button" class="btn btn-sm btn-outline-secondary"
-                        th:onclick="|location.href='@{/board/${board.id}}'|">자세히 보기
+                        th:onclick="|location.href='@{/board/{boardId}(boardId =${board.id})}'|">자세히 보기
                 </button>
                 <button type="button" class="btn btn-sm btn-outline-secondary">1:1채팅</button>
               </div>
-              <small class="text-muted" th:text="|가격 : ${board.price}|">가격:</small>
+              <small class="text-muted" th:text="|가격 : ${board.price} 원|">가격:</small>
               <!--등록 가격-->
             </div>
           </div>

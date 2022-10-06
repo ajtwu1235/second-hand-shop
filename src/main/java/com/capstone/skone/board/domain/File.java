@@ -6,12 +6,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class File {
 
@@ -27,12 +30,4 @@ public class File {
 
   @Column(nullable = false)
   private String filePath;
-
-  @Builder
-  public File(Long id, String origFilename, String filename, String filePath) {
-    this.id = id;
-    this.origFilename = origFilename;
-    this.filename = filename;
-    this.filePath = filePath;
-  }
 }

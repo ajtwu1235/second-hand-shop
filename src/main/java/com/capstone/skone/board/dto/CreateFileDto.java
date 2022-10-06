@@ -1,15 +1,16 @@
-package com.capstone.skone.board.dto.request;
+package com.capstone.skone.board.dto;
 
 import com.capstone.skone.board.domain.File;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
-@ToString
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
-public class CreateFileRequest {
+public class CreateFileDto {
   private Long id;
   private String origFilename;
   private String filename;
@@ -22,13 +23,5 @@ public class CreateFileRequest {
         .filename(filename)
         .filePath(filePath)
         .build();
-  }
-
-  @Builder
-  public CreateFileRequest(Long id, String origFilename, String filename, String filePath) {
-    this.id = id;
-    this.origFilename = origFilename;
-    this.filename = filename;
-    this.filePath = filePath;
   }
 }

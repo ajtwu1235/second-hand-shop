@@ -13,6 +13,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class MemberDto {
+
   private String email;
   private String password;
   private String auth;
@@ -23,12 +24,5 @@ public class MemberDto {
         .password(password)
         .auth(auth)
         .build();
-  }
-
-  @Builder
-  public MemberDto(String email, String password, String auth) {
-    this.email = email;
-    this.password = password;
-    this.auth = auth;
   }
 }

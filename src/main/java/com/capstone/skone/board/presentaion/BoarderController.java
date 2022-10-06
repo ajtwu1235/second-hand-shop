@@ -2,13 +2,11 @@ package com.capstone.skone.board.presentaion;
 
 import com.capstone.skone.board.application.BoardService;
 import com.capstone.skone.board.application.FileService;
-
 import com.capstone.skone.board.domain.Board;
-import com.capstone.skone.board.dto.request.CreateBoardRequest;
-import com.capstone.skone.board.dto.request.CreateFileRequest;
+import com.capstone.skone.board.dto.CreateBoardDto;
+import com.capstone.skone.board.dto.CreateFileDto;
 import com.capstone.skone.board.util.MD5Generator;
 import java.io.File;
-import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -27,12 +25,12 @@ public class BoarderController {
   private final FileService fileService;
 
   @GetMapping("/board")
-  public String viewHome(Model model){
+  public String viewHome(){
     return"board/board";
   }
 
   @PostMapping("/post")
-  public String write(@RequestParam("file") MultipartFile files, CreateBoardRequest createBoardRequest) {
+  public String write(@RequestParam("file") MultipartFile files, CreateBoardDto createBoardDto) {
     try {
       String origFilename = files.getOriginalFilename();
       String filename = new MD5Generator(origFilename).toString();
@@ -47,17 +45,18 @@ public class BoarderController {
           e.getStackTrace();
         }
       }
+
       String filePath = savePath + "\\" + origFilename;
       files.transferTo(new File(filePath));
 
-      CreateFileRequest createFileRequest = new CreateFileRequest();
-      createFileRequest.setOrigFilename(origFilename);
-      createFileRequest.setFilename(filename);
-      createFileRequest.setFilePath(filePath);
+      CreateFileDto createFileDto = new CreateFileDto();
+      createFileDto.setOrigFilename(origFilename);
+      createFileDto.setFilename(filename);
+      createFileDto.setFilePath(filePath);
 
-      Long fileId = fileService.saveFile(createFileRequest);
-      createBoardRequest.setFileId(fileId);
-      boardService.createBoard(createBoardRequest);
+      Long fileId = fileService.saveFile(createFileDto);
+      createBoardDto.setFileId(fileId);
+      boardService.createBoard(createBoardDto);
     } catch(Exception e) {
       e.printStackTrace();
     }
@@ -67,7 +66,7 @@ public class BoarderController {
   @GetMapping("/board/{id}")
   public String detailBoard(@PathVariable("id") Long id, Model model){
     Optional<Board> detail = boardService.findByBoard(id);
-    CreateFileRequest file = fileService.getFile(id);
+    CreateFileDto file = fileService.getFile(id);
     model.addAttribute("detail", detail);
     model.addAttribute("file", file);
     return "board/board_details";

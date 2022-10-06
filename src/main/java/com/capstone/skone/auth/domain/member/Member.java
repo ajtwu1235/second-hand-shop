@@ -9,21 +9,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
 @Entity
+@Builder
 public class Member implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   @Column(name = "email", nullable = false)
   private String email;
 
@@ -32,13 +37,6 @@ public class Member implements UserDetails {
 
   @Column(name = "auth")
   private String auth;
-
-  @Builder
-  public Member(String email, String password, String auth) {
-    this.email = email;
-    this.password = password;
-    this.auth = auth;
-  }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -58,6 +56,7 @@ public class Member implements UserDetails {
   public String getPassword() {
     return password;
   }
+
 
   @Override
   public boolean isAccountNonExpired() {
