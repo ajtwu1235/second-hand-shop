@@ -2,7 +2,6 @@ package com.capstone.skone.auth.dto;
 
 
 import com.capstone.skone.auth.domain.member.Member;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

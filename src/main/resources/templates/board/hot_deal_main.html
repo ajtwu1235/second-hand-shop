@@ -208,7 +208,7 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
       <!--한 문단-->
-      <div class="col" th:each="board:${mainBoard.getContent()}">
+      <div class="col" th:each="board:${hotDealBoard.getContent()}">
         <div class="card shadow-sm">
           <img th:src="|/static/files/${board.filename}|" width="100%" height="225">
           <div class="card-body">
@@ -217,7 +217,7 @@
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
                 <button type="button" class="btn btn-sm btn-outline-secondary"
-                        th:onclick="|location.href='@{/board/{boardId}(boardId =${board.id})}'|">자세히
+                        th:onclick="|location.href='@{/hot_deal/{boardId}(boardId =${board.id})}'|">자세히
                   보기
                 </button>
                 <button type="button" class="btn btn-sm btn-outline-secondary">1:1채팅</button>
@@ -235,29 +235,29 @@
 <nav style="text-align: center;">
   <ul class="pagination">
     <li>
-      <a th:href="|@{/(page=1)}|" aria-label="First">
+      <a th:href="|@{/(page=0)}|" aria-label="First">
         <span aria-hidden="true">First</span>
       </a>
     </li>
 
-    <li th:class="${mainBoard.first} ? 'disabled'">
-      <a th:href="|${mainBoard.first} ? '#' :@{/(page=${mainBoard.number})}|" aria-label="Previous">
+    <li th:class="${hotDealBoard.first} ? 'disabled'">
+      <a th:href="|${hotDealBoard.first} ? '#' :@{/hot_deal(page=${hotDealBoard.number})}|" aria-label="Previous">
         <span aria-hidden="true">&lt;</span>
       </a>
     </li>
 
-    <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == mainBoard.number} ? 'active'">
-      <a th:text="${page}" th:href="|@{/(page=${page})}|"></a>
+    <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == hotDealBoard.number} ? 'active'">
+      <a th:text="${page}" th:href="|@{/hot_deal(page=${page})}|"></a>
     </li>
 
-    <li th:class="${mainBoard.last} ? 'disabled'">
-      <a th:href="|${mainBoard.last} ? '#' : @{/(page=${mainBoard.number+1})}|" aria-label="Next">
+    <li th:class="${hotDealBoard.last} ? 'disabled'">
+      <a th:href="|${hotDealBoard.last} ? '#' : @{/hot_deal(page=${hotDealBoard.number+1})}|" aria-label="Next">
         <span aria-hidden="true">&gt;</span>
       </a>
     </li>
 
     <li>
-      <a th:href="|@{/(page=${mainBoard.totalPages})}|" aria-label="Last">
+      <a th:href="|@{/hot_deal(page=${hotDealBoard.totalPages})}|" aria-label="Last">
         <span aria-hidden="true">Last</span>
       </a>
     </li>

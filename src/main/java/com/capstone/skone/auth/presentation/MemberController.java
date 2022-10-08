@@ -4,8 +4,11 @@ import com.capstone.skone.auth.application.MemberService;
 import com.capstone.skone.auth.dto.MemberDto;
 import com.capstone.skone.board.application.BoardService;
 import com.capstone.skone.board.domain.Board;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +25,18 @@ public class MemberController {
    * @return
    */
   @GetMapping("/")
-  public String main(Model model) {
-    List<Board> allBoards = boardService.getBoards();
-    model.addAttribute("mainBoards", boardService.getAllBoard(allBoards));
+  public String main(Model model,
+      @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
+          Pageable pageable) {
+    Page<Board> mainBoard = boardService.pageList(pageable);
+
+    int start = (int) (Math.floor(mainBoard.getNumber()/10)*10 +1);
+    int last = Math.min(start + 9, mainBoard.getTotalPages());
+
+    model.addAttribute("mainBoard", mainBoard);
+    model.addAttribute("start", start);
+    model.addAttribute("last", last);
+
     return "scone_main";
   }
 

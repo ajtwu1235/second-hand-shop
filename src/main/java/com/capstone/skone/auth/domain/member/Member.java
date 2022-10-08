@@ -35,10 +35,6 @@ public class Member implements UserDetails {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  @JoinColumn(name = "user_id")
-  private List<Board> boardId;
-
   @Column(name = "email", nullable = false)
   private String email;
 

@@ -5,30 +5,36 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import lombok.AccessLevel;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class File {
+@Getter
+public class HotDealBoard {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "file_id")
   private Long id;
 
-  @Column(nullable = false)
-  private String origFilename;
+  @Column(name = "user_id")
+  private Long userId;
 
-  @Column(nullable = false)
+  private String nickname;
+
+  private String title;
+
+  private String content;
+
+  private Long price;
+
   private String filename;
 
-  @Column(nullable = false)
-  private String filePath;
+  private String option;
 }
