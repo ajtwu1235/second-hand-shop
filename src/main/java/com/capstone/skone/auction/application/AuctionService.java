@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -59,6 +60,9 @@ public class AuctionService {
         bidInfo.setAuction(auction);
         bidInfo.setBid_Price(price);
         bidInfo.setUserName(member.getUsername());
+        bidInfoRepository.save(bidInfo);
+    }
+    public void createBidInfo(BidInfo bidInfo){
         bidInfoRepository.save(bidInfo);
     }
 
@@ -119,6 +123,7 @@ public class AuctionService {
 
         return all.get(1).getBid_Price();
     }
+
 
 
 //    //입찰 메소드 (자유입찰?)

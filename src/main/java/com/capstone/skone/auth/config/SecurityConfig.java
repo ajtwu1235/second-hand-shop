@@ -48,13 +48,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
    */
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-
-    //csrf인증 무시
-    http.csrf().disable();
     http.authorizeRequests()
         // 페이지 권한 설정
         .antMatchers("/info").hasRole("MEMBER") // MEMBER, ADMIN만 접근 허용
-        .antMatchers("/admin").hasRole("ADMIN") // ADMIN만 접근 허용
+        .antMatchers("/admin").hasRole("ADMIN")// ADMIN만 접근 허용
+            .antMatchers("/auctions").hasAnyRole()
+            .antMatchers("/board").hasAnyRole()
         .antMatchers("/**").permitAll() // 그외 모든 경로에 대해서는 권한 없이 접근 허용
         // .anyRequest().authenticated() // 나머지 요청들은 권한의 종류에 상관 없이 권한이 있어야 접근 가능
         .and() // 로그인 설정
