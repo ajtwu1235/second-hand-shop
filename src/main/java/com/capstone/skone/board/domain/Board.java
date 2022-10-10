@@ -29,6 +29,7 @@ public class Board extends BaseTimeEntity {
   @Column(name = "user_id")
   private Long userId;
 
+  //작성자 이름...?
   private String nickname;
 
   private String title;

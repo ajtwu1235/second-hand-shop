@@ -48,6 +48,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
    */
   @Override
   protected void configure(HttpSecurity http) throws Exception {
+
+    //csrf인증 무시
+    http.csrf().disable();
     http.authorizeRequests()
         // 페이지 권한 설정
         .antMatchers("/info").hasRole("MEMBER") // MEMBER, ADMIN만 접근 허용
