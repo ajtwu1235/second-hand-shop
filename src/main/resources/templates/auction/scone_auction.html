@@ -289,7 +289,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <p href="..." th:text="|구매자 ID: ${member.name}|">구매자 ID:</p>
+                <p href="..." th:text="|구매자 ID: ${member.getUsername()}|">구매자 ID:</p>
                 <p href="...">입찰 금액 <label for="inputBidding1" class="visually-hidden"></label>
                   <input type="text" th:field="*{price}" class="form-control" id="inputBidding1" placeholder="0원">
                 </p>

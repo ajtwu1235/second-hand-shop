@@ -1,5 +1,6 @@
 package com.capstone.skone.auction.domain;
 
+import com.capstone.skone.auth.domain.member.Member;
 import com.capstone.skone.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +20,9 @@ public class Auction extends BaseTimeEntity {
   @Column(name ="auction_id")
   private Long auctionNumber;
 
-  private String userName;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "id")
+  private Member member;
 
   private String title;
 
@@ -32,8 +35,8 @@ public class Auction extends BaseTimeEntity {
 
   //테스트용
   @Builder
-  public Auction(String userName, String title, String content,List<BidInfo> bidInfos) {
-    this.userName = userName;
+  public Auction(Member member, String title, String content,List<BidInfo> bidInfos) {
+    this.member = member;
     this.title = title;
     this.content = content;
     this.bidInfos =bidInfos;

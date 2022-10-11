@@ -32,7 +32,7 @@ public class AuctionDto {
                 .collect(Collectors.toList());
         Collections.sort(bidInfo,(a,b)->b.getBid_price()-a.getBid_price());
         this.fileName = auction.getFileName();
-        this.userName = auction.getUserName();
+        this.userName = auction.getMember().getUsername();
         this.left_time=auction.getCreatedDate().plusDays(7L);
     }
 

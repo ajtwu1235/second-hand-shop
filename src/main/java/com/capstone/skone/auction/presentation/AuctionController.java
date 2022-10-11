@@ -13,6 +13,7 @@ import com.capstone.skone.auth.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -57,12 +58,15 @@ public class AuctionController {
      * @return
      */
     @GetMapping("/auction/{id}")
-    public String auction_detail(@PathVariable Long id ,
-                                 @ModelAttribute BidForm bidForm, Model model){
+    public String auction_detail(@PathVariable Long id , @ModelAttribute BidForm bidForm,
+                                 Authentication authentication, Model model){
         Auction auction = auctionService.getSingleAuction(id);
+        Member member = (Member) authentication.getPrincipal();
+
 
         AuctionDto auctionDto = new AuctionDto(auction);
         model.addAttribute("auction",auctionDto);
+        model.addAttribute("member",member);
         //로그인시 화면페이지 이동
         return "auction/scone_auction";
     }

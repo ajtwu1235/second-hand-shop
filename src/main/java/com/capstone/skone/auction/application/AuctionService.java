@@ -47,10 +47,10 @@ public class AuctionService {
         int first = bidInfos.get(0).getBid_Price();
 
         if(price<first+first/10){
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     public void createBidInfo(Auction auction, Member member, int price){

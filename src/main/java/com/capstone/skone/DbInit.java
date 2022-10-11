@@ -4,6 +4,9 @@ import com.capstone.skone.auction.application.AuctionService;
 import com.capstone.skone.auction.domain.Auction;
 import com.capstone.skone.auction.domain.BidInfo;
 import com.capstone.skone.auction.infrastructure.AuctionRepository;
+import com.capstone.skone.auth.application.MemberService;
+import com.capstone.skone.auth.domain.member.Member;
+import com.capstone.skone.auth.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,17 +19,27 @@ import java.util.List;
 public class DbInit {
 
     private final AuctionService auctionService;
+    private final MemberService memberService;
 
     @PostConstruct
     private void AuctionInit(){
 
+
+        MemberDto memberDto = new MemberDto();
+        memberDto.setEmail("1234");
+        memberDto.setPassword("1234");
+        memberDto.setAuth("ROLE_MEMBER");
+
+        Long memberId = memberService.joinUser(memberDto);
+
+        Member member = memberService.loadUserByUserId(memberId);
 
         for(int i=0;i<85;i++){
 
             List<BidInfo> arr= new ArrayList<>();
 
             Auction auction = Auction.builder()
-                    .userName("유저" + i)
+                    .member(member)
                     .title("제목" + i)
                     .content("내용" + i)
                     .bidInfos(arr)
