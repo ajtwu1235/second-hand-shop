@@ -28,6 +28,7 @@ public class MemberService implements UserDetailsService {
     return memberRepository.save(memberDto.toEntity()).getId();
   }
 
+
   /**
    * 상세 정보 조회
    * Security 지정 서비스이므로 필수 구현
@@ -39,5 +40,9 @@ public class MemberService implements UserDetailsService {
   public Member loadUserByUsername(String email) throws UsernameNotFoundException {
     return memberRepository.findByEmail(email)
         .orElseThrow(() -> new UsernameNotFoundException((email)));
+  }
+
+  public Member loadUserByUserId(Long userId){
+    return memberRepository.findById(userId).get();
   }
 }
