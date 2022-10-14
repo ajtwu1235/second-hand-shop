@@ -1,6 +1,6 @@
-package com.capstone.skone.board.infrastructure;
+package com.capstone.skone.auth.board.infrastructure;
 
-import com.capstone.skone.board.domain.File;
+import com.capstone.skone.auth.board.domain.File;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FileRepository extends JpaRepository<File, Long> {

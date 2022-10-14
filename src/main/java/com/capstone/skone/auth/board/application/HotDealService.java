@@ -1,9 +1,8 @@
-package com.capstone.skone.board.application;
+package com.capstone.skone.auth.board.application;
 
-import com.capstone.skone.board.domain.HotDealBoard;
-import com.capstone.skone.board.dto.DetailBoardDto;
-import com.capstone.skone.board.dto.DetailHotDealBoardDto;
-import com.capstone.skone.board.infrastructure.HotDealRepository;
+import com.capstone.skone.auth.board.domain.HotDealBoard;
+import com.capstone.skone.auth.board.dto.DetailHotDealBoardDto;
+import com.capstone.skone.auth.board.infrastructure.HotDealRepository;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;

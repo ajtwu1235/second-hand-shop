@@ -1,4 +1,4 @@
-package com.capstone.skone.board.util;
+package com.capstone.skone.auth.board.util;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

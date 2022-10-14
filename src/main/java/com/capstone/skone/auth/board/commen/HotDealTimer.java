@@ -1,10 +1,10 @@
-package com.capstone.skone.board.commen;
+package com.capstone.skone.auth.board.commen;
 
-import com.capstone.skone.board.domain.Board;
-import com.capstone.skone.board.domain.HotDealBoard;
-import com.capstone.skone.board.infrastructure.BoardRepository;
-import com.capstone.skone.board.infrastructure.FileRepository;
-import com.capstone.skone.board.infrastructure.HotDealRepository;
+import com.capstone.skone.auth.board.domain.Board;
+import com.capstone.skone.auth.board.domain.HotDealBoard;
+import com.capstone.skone.auth.board.infrastructure.BoardRepository;
+import com.capstone.skone.auth.board.infrastructure.FileRepository;
+import com.capstone.skone.auth.board.infrastructure.HotDealRepository;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;

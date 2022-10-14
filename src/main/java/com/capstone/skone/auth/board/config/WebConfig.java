@@ -1,4 +1,4 @@
-package com.capstone.skone.board.config;
+package com.capstone.skone.auth.board.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
