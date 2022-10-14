@@ -1,0 +1,86 @@
+package com.capstone.skone.auth.board.application;
+
+import com.capstone.skone.auth.board.commen.HotDealTimer;
+import com.capstone.skone.auth.board.domain.Board;
+import com.capstone.skone.auth.board.dto.CreateBoardDto;
+import com.capstone.skone.auth.board.dto.DetailBoardDto;
+import com.capstone.skone.auth.board.dto.UpdateBoardDto;
+import com.capstone.skone.auth.board.infrastructure.BoardRepository;
+import com.capstone.skone.auth.board.infrastructure.FileRepository;
+import com.capstone.skone.auth.board.infrastructure.HotDealRepository;
+
+import java.util.List;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class BoardService {
+
+  private final BoardRepository boardRepository;
+  private final FileService fileService;
+  private final FileRepository fileRepository;
+  private final HotDealRepository hotDealRepository;
+
+  public Optional<Board> findByBoard(Long id) {
+    return boardRepository.findById(id);
+  }
+
+  @Transactional
+  public void createBoard(CreateBoardDto createBoardDto) {
+    boardRepository.save(Board.builder()
+        .id(createBoardDto.getId())
+        .nickname(createBoardDto.getNickname())
+        .title(createBoardDto.getTitle())
+        .content(createBoardDto.getContent())
+        .price(createBoardDto.getPrice())
+        .filename(createBoardDto.getFilename())
+        .option(createBoardDto.getOption())
+        .build()
+    );
+    //7일 = 604800000
+    if (createBoardDto.getOption().equals("HOT_DEAL")) {
+      new HotDealTimer(boardRepository, hotDealRepository, fileRepository);
+    }
+  }
+
+  @Transactional
+  public void updateBoard(Long id, UpdateBoardDto updateBoardRequest) {
+    Board board = boardRepository.findById(id).orElseThrow(() -> {
+      throw new NullPointerException();
+    });
+    board.update(updateBoardRequest.getTitle(), updateBoardRequest.getContent(),
+        updateBoardRequest.getPrice());
+  }
+
+  public void deleteBoard(Long id) {
+    boardRepository.deleteById(id);
+  }
+
+  public DetailBoardDto getDetailBoard(Long id){
+    Board board = boardRepository.getById(id);
+    return DetailBoardDto.builder()
+        .id(board.getId())
+        .nickname(board.getNickname())
+        .title(board.getTitle())
+        .content(board.getContent())
+        .filename(fileService.getFile(board.getId()).getOrigFilename())
+        .price(board.getPrice())
+        .option(board.getOption())
+        .build();
+  }
+
+  @Transactional(readOnly = true)
+  public Page<Board> pageList(Pageable pageable) {
+    return boardRepository.findAll(pageable);
+  }
+
+  @Transactional
+  public List<Board> keywordSearch(String title) {
+    return boardRepository.findByTitleContaining(title);
+  }
+}

@@ -2,8 +2,8 @@ package com.capstone.skone.auth.presentation;
 
 import com.capstone.skone.auth.application.MemberService;
 import com.capstone.skone.auth.dto.MemberDto;
-import com.capstone.skone.board.application.BoardService;
-import com.capstone.skone.board.domain.Board;
+import com.capstone.skone.auth.board.application.BoardService;
+import com.capstone.skone.auth.board.domain.Board;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,8 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -66,7 +65,7 @@ public class MemberController {
    */
   @GetMapping("/signup")
   public String goSignup() {
-    return "login/signup";
+    return "login/scone_sign_up";
   }
 
   /**
@@ -75,7 +74,11 @@ public class MemberController {
    * @return
    */
   @PostMapping("/signup")
-  public String signup(MemberDto memberDto) {
+  public String signup(@ModelAttribute("memberDto") MemberDto memberDto) {
+
+    System.out.println("----------------------------------------");
+    System.out.println("memberDto = " + memberDto);
+    System.out.println("----------------------------------------");
     memberService.joinUser(memberDto);
 
     return "redirect:/user/login";
