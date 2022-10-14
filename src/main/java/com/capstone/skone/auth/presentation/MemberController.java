@@ -9,9 +9,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,6 +32,7 @@ public class MemberController {
   public String main(Model model,
       @PageableDefault(sort = "id", direction = Sort.Direction.DESC)
           Pageable pageable) {
+    System.out.println("============> login success ");
     Page<Board> mainBoard = boardService.pageList(pageable);
 
     int start = (int) (Math.floor(mainBoard.getNumber()/10)*10 +1);
@@ -74,13 +80,10 @@ public class MemberController {
    * @return
    */
   @PostMapping("/signup")
-  public String signup(@ModelAttribute("memberDto") MemberDto memberDto) {
+  public String signup(@ModelAttribute("memberDto") MemberDto memberDto,  HttpServletRequest request)throws Exception {
 
-    System.out.println("----------------------------------------");
-    System.out.println("memberDto = " + memberDto);
-    System.out.println("----------------------------------------");
+
     memberService.joinUser(memberDto);
-
     return "redirect:/user/login";
   }
 
