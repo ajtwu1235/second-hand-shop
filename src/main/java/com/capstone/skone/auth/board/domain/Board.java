@@ -1,4 +1,4 @@
-package com.capstone.skone.board.domain;
+package com.capstone.skone.auth.board.domain;
 
 import com.capstone.skone.domain.BaseTimeEntity;
 import javax.persistence.Column;

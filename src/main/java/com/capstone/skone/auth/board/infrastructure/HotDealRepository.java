@@ -1,6 +1,7 @@
-package com.capstone.skone.board.infrastructure;
+package com.capstone.skone.auth.board.infrastructure;
 
-import com.capstone.skone.board.domain.HotDealBoard;
+import com.capstone.skone.auth.board.domain.HotDealBoard;
+
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

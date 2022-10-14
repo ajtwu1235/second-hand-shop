@@ -1,7 +1,6 @@
 package com.capstone.skone.auction.dto;
 
 import com.capstone.skone.auction.domain.Auction;
-import com.capstone.skone.board.domain.File;
 import lombok.Data;
 
 

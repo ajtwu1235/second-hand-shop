@@ -1,8 +1,8 @@
-package com.capstone.skone.board.application;
+package com.capstone.skone.auth.board.application;
 
-import com.capstone.skone.board.domain.File;
-import com.capstone.skone.board.dto.CreateFileDto;
-import com.capstone.skone.board.infrastructure.FileRepository;
+import com.capstone.skone.auth.board.domain.File;
+import com.capstone.skone.auth.board.dto.CreateFileDto;
+import com.capstone.skone.auth.board.infrastructure.FileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

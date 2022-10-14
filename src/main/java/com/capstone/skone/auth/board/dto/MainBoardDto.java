@@ -1,6 +1,6 @@
-package com.capstone.skone.board.dto;
+package com.capstone.skone.auth.board.dto;
 
-import com.capstone.skone.board.domain.File;
+import com.capstone.skone.auth.board.domain.File;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

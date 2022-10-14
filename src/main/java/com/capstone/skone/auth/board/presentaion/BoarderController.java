@@ -1,14 +1,15 @@
-package com.capstone.skone.board.presentaion;
+package com.capstone.skone.auth.board.presentaion;
 
-import com.capstone.skone.board.application.BoardService;
-import com.capstone.skone.board.application.FileService;
-import com.capstone.skone.board.application.HotDealService;
-import com.capstone.skone.board.domain.HotDealBoard;
-import com.capstone.skone.board.dto.CreateBoardDto;
-import com.capstone.skone.board.dto.CreateFileDto;
-import com.capstone.skone.board.dto.DetailBoardDto;
-import com.capstone.skone.board.dto.DetailHotDealBoardDto;
-import com.capstone.skone.board.util.MD5Generator;
+import com.capstone.skone.auth.board.application.HotDealService;
+import com.capstone.skone.auth.board.domain.HotDealBoard;
+import com.capstone.skone.auth.board.dto.CreateBoardDto;
+import com.capstone.skone.auth.board.dto.CreateFileDto;
+import com.capstone.skone.auth.board.dto.DetailBoardDto;
+import com.capstone.skone.auth.board.util.MD5Generator;
+import com.capstone.skone.auth.board.application.BoardService;
+import com.capstone.skone.auth.board.application.FileService;
+import com.capstone.skone.auth.board.dto.DetailHotDealBoardDto;
+
 import java.io.File;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

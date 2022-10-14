@@ -1,18 +1,18 @@
-package com.capstone.skone.board.dto;
+package com.capstone.skone.auth.board.dto;
 
-import com.capstone.skone.board.domain.File;
+
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class CreateBoardDto {
+public class HotDealBoardDto {
 
   private Long id;
   private String nickname;
   private String title;
   private String content;
   private Long price;
-  private String filename;
+  private Long fileId;
   private String option;
 }
