@@ -26,8 +26,8 @@ public class Board extends BaseTimeEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "user_id")
-  private Long userId;
+  @Column(name = "user_email")
+  private String userEmail;
 
   //작성자 이름...?
   private String nickname;

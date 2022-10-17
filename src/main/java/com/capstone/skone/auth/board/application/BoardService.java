@@ -40,6 +40,7 @@ public class BoardService {
         .price(createBoardDto.getPrice())
         .filename(createBoardDto.getFilename())
         .option(createBoardDto.getOption())
+        .userEmail(createBoardDto.getUserEmail())
         .build()
     );
     //7일 = 604800000
@@ -48,6 +49,11 @@ public class BoardService {
     }
   }
 
+  public Board selectBoard(Long id){
+    Board  board = boardRepository.findById(id).orElse(null);
+    System.out.println("board = " + board);
+    return board;
+  }
   @Transactional
   public void updateBoard(Long id, UpdateBoardDto updateBoardRequest) {
     Board board = boardRepository.findById(id).orElseThrow(() -> {

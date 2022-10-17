@@ -1,6 +1,7 @@
 package com.capstone.skone.auth.board.presentaion;
 
 import com.capstone.skone.auth.board.application.HotDealService;
+import com.capstone.skone.auth.board.domain.Board;
 import com.capstone.skone.auth.board.domain.HotDealBoard;
 import com.capstone.skone.auth.board.dto.CreateBoardDto;
 import com.capstone.skone.auth.board.dto.CreateFileDto;
@@ -11,18 +12,24 @@ import com.capstone.skone.auth.board.application.FileService;
 import com.capstone.skone.auth.board.dto.DetailHotDealBoardDto;
 
 import java.io.File;
+
+import com.capstone.skone.auth.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.util.StringUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,7 +45,7 @@ public class BoarderController {
   }
 
   @PostMapping("/post")
-  public String write(@RequestParam("file") MultipartFile files, CreateBoardDto createBoardDto) {
+  public String write(@RequestParam("file") MultipartFile files, CreateBoardDto createBoardDto, Authentication auth) {
     try {
       String origFilename = files.getOriginalFilename();
       String filename = new MD5Generator(origFilename).toString();
@@ -63,6 +70,7 @@ public class BoarderController {
 
       String fileName = fileService.saveFile(createFileDto);
       createBoardDto.setFilename(fileName);
+      createBoardDto.setUserEmail(auth.getName());
       boardService.createBoard(createBoardDto);
     } catch (Exception e) {
       e.printStackTrace();
@@ -98,5 +106,24 @@ public class BoarderController {
     DetailHotDealBoardDto detail = hotDealService.getDetailHotDealBoard(id);
     model.addAttribute("detail", detail);
     return "board/hot_deal_board_details";
+  }
+
+  @PostMapping("/board/remove")
+  public String  boardRemove(@ModelAttribute("createBoardDto") CreateBoardDto createBoardDto, Authentication auth, HttpServletRequest request) throws Exception{
+
+    /** 게시글 Id 받아오는 부분*/
+    Long id = createBoardDto.getId();
+    Board board = boardService.selectBoard(id);
+
+    /**로그인 정보 비교부분*/
+    if(!ObjectUtils.isEmpty(board)){
+      String loginUser = auth.getName();
+      String writer = board.getUserEmail();
+      // 로그인 정보와 게시글 작성자가 동일한 경우 게시물 삭제처리
+      if(StringUtils.equals(writer,loginUser)){
+        boardService.deleteBoard(id);
+      }
+    }
+    return "redirect:/";
   }
 }

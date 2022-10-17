@@ -14,4 +14,5 @@ public class CreateBoardDto {
   private Long price;
   private String filename;
   private String option;
+  private String userEmail;
 }

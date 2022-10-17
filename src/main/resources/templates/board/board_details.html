@@ -296,6 +296,7 @@
         </div>
     </header>
 
+
     <div class="mx-auto" style="width: 400px; height:400px;">
         <div class="card mb-3">
             <!--상품 사진-->
@@ -304,6 +305,8 @@
             </div>
 
             <div class="card" style="width: 400px; ">
+                <form th:action="@{/board/remove}" th:object="${createBoardDto}" method="post">
+                    <input type="hidden" name="id" th:value="${detail.getId()}">
                 <div class="card-body">
                     <!--프로필 사진-->
                     <div class="box" style="background: #ffffff;">
@@ -324,6 +327,9 @@
                     <!--btn-chat-->
                     <button type="button" class="btn btn-sm btn-outline-secondary btn-report">신고</button>
                     <!--btn-report-->
+                    <button type="submit" class="btn btn-sm btn-outline-secondary btn-delete">삭제</button>
+                    <!--btn-delete-->
+                    </form>
                 </div>
             </div>
         </div>
