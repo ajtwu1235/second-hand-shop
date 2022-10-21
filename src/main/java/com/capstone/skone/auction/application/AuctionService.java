@@ -4,16 +4,13 @@ import com.capstone.skone.auction.domain.Auction;
 import com.capstone.skone.auction.domain.BidInfo;
 import com.capstone.skone.auction.infrastructure.AuctionRepository;
 import com.capstone.skone.auction.infrastructure.BidInfoRepository;
-import com.capstone.skone.auth.domain.member.Member;
-import com.capstone.skone.auth.infrastructure.MemberRepository;
+import com.capstone.skone.auction.auth.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
-import javax.annotation.PostConstruct;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -123,6 +120,17 @@ public class AuctionService {
 
         return all.get(1).getBid_Price();
     }
+
+    public Auction selectAuction(Long id){
+        Auction auction = auctionRepository.findById(id).orElse(null);
+        System.out.println("auction = " + auction);
+        return auction;
+    }
+
+    public void deleteAuction(Long id){
+        auctionRepository.deleteById(id);
+    }
+
 
 
 

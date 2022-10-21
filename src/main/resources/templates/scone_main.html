@@ -232,37 +232,40 @@
   </div>
 </div>
 
-<nav style="text-align: center;">
-  <ul class="pagination">
-    <li>
-      <a th:href="|@{/(page=1)}|" aria-label="First">
-        <span aria-hidden="true">First</span>
-      </a>
-    </li>
+<!--하단 페이지 넘기는 태그 (페이지네이션)-->
+<div class="Page_num">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" th:href="|@{/(page=1)}|" aria-label="First">
+          <span aria-hidden="true">First</span>
+        </a>
+      </li>
 
-    <li th:class="${mainBoard.first} ? 'disabled'">
-      <a th:href="|${mainBoard.first} ? '#' :@{/(page=${mainBoard.number})}|" aria-label="Previous">
-        <span aria-hidden="true">&lt;</span>
-      </a>
-    </li>
+      <li class="page-item" th:class="${mainBoard.first} ? 'disabled'">
+        <a class="page-link" th:href="|${mainBoard.first} ? '#' :@{/(page=${mainBoard.number})}|" aria-label="Previous">
+          <span aria-hidden="true">&lt;</span>
+        </a>
+      </li>
 
-    <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == mainBoard.number} ? 'active'">
-      <a th:text="${page}" th:href="|@{/(page=${page})}|"></a>
-    </li>
+      <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == mainBoard.number} ? 'active'">
+        <a class="page-link" th:text="${page}" th:href="|@{/(page=${page})}|"></a>
+      </li>
 
-    <li th:class="${mainBoard.last} ? 'disabled'">
-      <a th:href="|${mainBoard.last} ? '#' : @{/(page=${mainBoard.number+1})}|" aria-label="Next">
-        <span aria-hidden="true">&gt;</span>
-      </a>
-    </li>
+      <li class="page-item" th:class="${mainBoard.last} ? 'disabled'">
+        <a class="page-link" th:href="|${mainBoard.last} ? '#' : @{/(page=${mainBoard.number+1})}|" aria-label="Next">
+          <span aria-hidden="true">&gt;</span>
+        </a>
+      </li>
 
-    <li>
-      <a th:href="|@{/(page=${mainBoard.totalPages})}|" aria-label="Last">
-        <span aria-hidden="true">Last</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+      <li class="page-item">
+        <a class="page-link" th:href="|@{/(page=${mainBoard.totalPages})}|" aria-label="Last">
+          <span aria-hidden="true">Last</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
 </body>
 <footer>
 </footer>

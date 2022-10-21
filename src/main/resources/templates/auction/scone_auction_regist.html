@@ -191,7 +191,7 @@
 
     <body>
         <!--경매 등록 페이지 레이아웃-->
-        <form enctype="multipart/form-data" th:action th:object="${auctionRegDto}" method="post" >
+        <form enctype="multipart/form-data" th:action="@{/auction/reg}" th:object="${auctionRegDto}" method="post" >
         <div
             style="width: 1500px; height: 800px; border: 1px solid #adb5bd; border-radius: 15px; margin-left: 300px; margin-bottom: 10px;">
             <!--상품 등록 취소 버튼-->
@@ -228,9 +228,9 @@
                         <dr></dr>
 
                         <div class="col-sm-3">
-                            <select class="form-select"  type="product_Month" aria-label="product_Month"
-                                id="product_EndDate">
-                                <option selected value="select_Month" hidden>월</option>
+                            <select class="form-select" th:field="*{month}" type="product_Month" aria-label="product_Month"
+                                id="product_EndMonth">
+                                <option selected th:value="select_Month" hidden>월</option>
                                 <option th:value="1">1월</option>
                                 <option th:value="2">2월</option>
                                 <option th:value="3">3월</option>
@@ -247,7 +247,7 @@
                         </div>
 
                         <div class="col-sm-3">
-                            <input type="product_Date" th:field="*{day}" class="form-control" placeholder="일" aria-label="product_Date"
+                            <input type="text" th:field="*{day}" class="form-control" placeholder="일" aria-label="product_Date"
                                 id="product_EndDate">
                         </div>
                     </div>
@@ -255,7 +255,7 @@
                     <!--입찰 가격 입력-->
                     <div class="mb-3">
                         <label for="inputBidding1" class="form-label">초기 입찰 가격 입력</label>
-                        <input type="bidding" th:field="*{price}" class="form-control" id="inputBidding1" placeholder="0원">
+                        <input type="text" th:field="*{price}" class="form-control" id="inputBidding1" placeholder="0원">
                     </div>
 
 
@@ -267,8 +267,8 @@
 
                 <!--사진 첨부 레이아웃-->
                 <div class="mb-3" style="width:300px; margin-left:50px;">
-                    <label for="formFile" class="form-label">사진 첨부</label>
-                    <input class="form-control" type="file"  th:field="*{images}"  id="photo_resist">
+                    <label for="photo_resist" class="form-label">사진 첨부</label>
+                    <input class="form-control" type="file" name="file"  id="photo_resist">
                 </div>
 
 
