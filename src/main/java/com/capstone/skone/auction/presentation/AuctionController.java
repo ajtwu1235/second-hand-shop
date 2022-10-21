@@ -1,18 +1,17 @@
 package com.capstone.skone.auction.presentation;
 
 import com.capstone.skone.auction.application.AuctionService;
-import com.capstone.skone.auction.auth.board.application.FileService;
-import com.capstone.skone.auction.auth.board.dto.CreateBoardDto;
-import com.capstone.skone.auction.auth.board.dto.CreateFileDto;
-import com.capstone.skone.auction.auth.board.util.MD5Generator;
+import com.capstone.skone.board.application.FileService;
+import com.capstone.skone.board.dto.CreateFileDto;
+import com.capstone.skone.board.util.MD5Generator;
 import com.capstone.skone.auction.domain.Auction;
 import com.capstone.skone.auction.domain.BidInfo;
 import com.capstone.skone.auction.dto.AuctionDto;
 import com.capstone.skone.auction.dto.AuctionIdListDto;
 import com.capstone.skone.auction.dto.AuctionRegDto;
 import com.capstone.skone.auction.dto.BidForm;
-import com.capstone.skone.auction.auth.application.MemberService;
-import com.capstone.skone.auction.auth.domain.member.Member;
+import com.capstone.skone.auth.application.MemberService;
+import com.capstone.skone.auth.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,6 +1,6 @@
 package com.capstone.skone.auction.domain;
 
-import com.capstone.skone.auction.auth.domain.member.Member;
+import com.capstone.skone.auth.domain.member.Member;
 import com.capstone.skone.chat.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;

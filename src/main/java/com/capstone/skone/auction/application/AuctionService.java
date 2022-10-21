@@ -4,7 +4,7 @@ import com.capstone.skone.auction.domain.Auction;
 import com.capstone.skone.auction.domain.BidInfo;
 import com.capstone.skone.auction.infrastructure.AuctionRepository;
 import com.capstone.skone.auction.infrastructure.BidInfoRepository;
-import com.capstone.skone.auction.auth.domain.member.Member;
+import com.capstone.skone.auth.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
