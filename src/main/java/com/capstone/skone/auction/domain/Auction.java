@@ -1,7 +1,7 @@
 package com.capstone.skone.auction.domain;
 
 import com.capstone.skone.auth.domain.member.Member;
-import com.capstone.skone.domain.BaseTimeEntity;
+import com.capstone.skone.chat.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,16 +30,20 @@ public class Auction extends BaseTimeEntity {
 
   private String fileName;
 
-  @OneToMany(mappedBy = "auction")
+  private String initPrice;
+
+  @OneToMany(mappedBy = "auction", cascade = CascadeType.ALL)
   private List<BidInfo> bidInfos = new ArrayList<>();
 
   //테스트용
   @Builder
-  public Auction(Member member, String title, String content,List<BidInfo> bidInfos) {
+  public Auction(Member member, String title, String content,List<BidInfo> bidInfos, String fileName, String initPrice) {
     this.member = member;
     this.title = title;
     this.content = content;
+    this.fileName =  fileName;
     this.bidInfos =bidInfos;
+    this.initPrice = initPrice;
   }
 
   public Auction() {

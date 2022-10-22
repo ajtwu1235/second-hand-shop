@@ -14,7 +14,7 @@
   <span sec:authentication="name"></span>님 환영합니다.
 </div>
 <!-- 익명의 사용자 -->
-<a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+<a sec:authorize="isAnonymous()" th:href="@{/user}">로그인</a>
 <a sec:authorize="isAnonymous()" th:href="@{/signup}">회원가입</a>
 
 <!-- 인증된 사용자 -->

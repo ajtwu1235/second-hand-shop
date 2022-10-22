@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bootstrap demo</title>
+  <title>스코네 핫딜</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
         rel="stylesheet">
   <link th:href="@{/css/headers.css}" rel="stylesheet">
@@ -194,7 +194,7 @@
                 th:onclick="|location.href='@{/logout}'|" class="btn btn-primary">로그아웃
         </button>
         <button sec:authorize="isAuthenticated()" type="button"
-                th:onclick="|location.href='@{/board}'|" class="btn btn-primary">글쓰기
+                th:onclick="|location.href='@{/board}'|" class="btn btn-primary">물품 등록
         </button>
 
       </div>
@@ -220,7 +220,7 @@
                         th:onclick="|location.href='@{/hot_deal/{boardId}(boardId =${board.id})}'|">자세히
                   보기
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">1:1채팅</button>
+
               </div>
               <small class="text-muted" th:text="|가격 : ${board.price} 원|">가격:</small>
               <!--등록 가격-->
@@ -231,43 +231,82 @@
     </div>
   </div>
 </div>
+<!--
+<nav style="text-align: center;">
+  <ul class="pagination">
+    <li>
+      <a th:href="|@{/(page=0)}|" aria-label="First">
+        <span aria-hidden="true">First</span>
+      </a>
+    </li>
 
-<!--하단 페이지 넘기는 태그 (페이지네이션)-->
-<div class="Page_num">
-  <nav style="text-align: center;">
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link" th:href="|@{/(page=0)}|" aria-label="First">
-          <span aria-hidden="true">First</span>
-        </a>
-      </li>
+    <li th:class="${hotDealBoard.first} ? 'disabled'">
+      <a th:href="|${hotDealBoard.first} ? '#' :@{/hot_deal(page=${hotDealBoard.number})}|" aria-label="Previous">
+        <span aria-hidden="true">&lt;</span>
+      </a>
+    </li>
 
-      <li class="page-item" th:class="${hotDealBoard.first} ? 'disabled'">
-        <a class="page-link" th:href="|${hotDealBoard.first} ? '#' :@{/hot_deal(page=${hotDealBoard.number})}|" aria-label="Previous">
-          <span aria-hidden="true">&lt;</span>
-        </a>
-      </li>
+    <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == hotDealBoard.number} ? 'active'">
+      <a th:text="${page}" th:href="|@{/hot_deal(page=${page})}|"></a>
+    </li>
 
-      <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == hotDealBoard.number} ? 'active'">
-        <a class="page-link" th:text="${page}" th:href="|@{/hot_deal(page=${page})}|"></a>
-      </li>
+    <li th:class="${hotDealBoard.last} ? 'disabled'">
+      <a th:href="|${hotDealBoard.last} ? '#' : @{/hot_deal(page=${hotDealBoard.number+1})}|" aria-label="Next">
+        <span aria-hidden="true">&gt;</span>
+      </a>
+    </li>
 
-      <li class="page-item" th:class="${hotDealBoard.last} ? 'disabled'">
-        <a class="page-link" th:href="|${hotDealBoard.last} ? '#' : @{/hot_deal(page=${hotDealBoard.number+1})}|" aria-label="Next">
-          <span aria-hidden="true">&gt;</span>
-        </a>
-      </li>
-
-      <li class="page-item">
-        <a class="page-link" th:href="|@{/hot_deal(page=${hotDealBoard.totalPages})}|" aria-label="Last">
-          <span aria-hidden="true">Last</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-</div>
-
+    <li>
+      <a th:href="|@{/hot_deal(page=${hotDealBoard.totalPages})}|" aria-label="Last">
+        <span aria-hidden="true">Last</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+-->
 </body>
 <footer>
+
+  <div style="width:100%; position:relative; margin-left:10%;">
+    <button sec:authorize="isAuthenticated()" type="button"
+            th:onclick="|location.href='@{/board}'|" class="btn btn-primary">물품 등록
+    </button>
+  </div>
+
+  <!--하단 페이지 넘기는 태그 (페이지네이션)-->
+  <div class="Page_num">
+    <nav style="text-align: center;">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" th:href="|@{/(page=0)}|" aria-label="First">
+            <span aria-hidden="true">First</span>
+          </a>
+        </li>
+
+        <li class="page-item" th:class="${hotDealBoard.first} ? 'disabled'">
+          <a class="page-link" th:href="|${hotDealBoard.first} ? '#' :@{/hot_deal(page=${hotDealBoard.number})}|" aria-label="Previous">
+            <span aria-hidden="true">&lt;</span>
+          </a>
+        </li>
+
+        <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == hotDealBoard.number} ? 'active'">
+          <a class="page-link" th:text="${page}" th:href="|@{/hot_deal(page=${page})}|"></a>
+        </li>
+
+        <li class="page-item" th:class="${hotDealBoard.last} ? 'disabled'">
+          <a class="page-link" th:href="|${hotDealBoard.last} ? '#' : @{/hot_deal(page=${hotDealBoard.number+1})}|" aria-label="Next">
+            <span aria-hidden="true">&gt;</span>
+          </a>
+        </li>
+
+        <li class="page-item">
+          <a class="page-link" th:href="|@{/hot_deal(page=${hotDealBoard.totalPages})}|" aria-label="Last">
+            <span aria-hidden="true">Last</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
 </footer>
 </html>

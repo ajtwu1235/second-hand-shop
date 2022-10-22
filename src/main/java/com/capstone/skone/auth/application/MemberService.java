@@ -45,4 +45,6 @@ public class MemberService implements UserDetailsService {
   public Member loadUserByUserId(Long userId){
     return memberRepository.findById(userId).get();
   }
+
+
 }

@@ -248,7 +248,7 @@
           <!--현재 진행값 = 2등입찰가 -->
           <p class="card-text" style="font-size: 20px;">현재 진행값
             <output id="bidding_price" th:if="${auction.bidInfo.size()==1}" th:text="${auction.bidInfo.get(0).bid_price}"   style="margin-left: 100px; font-size: 50px;"  >14,400</output>
-            <output id="bidding_price" th:if="${auction.bidInfo.size()>1}" th:text="${auction.bidInfo.get(1).bid_price}"   style="margin-left: 100px; font-size: 50px;"  >14,400</output></p>
+            <output id="bidding_price1" th:if="${auction.bidInfo.size()>1}" th:text="${auction.bidInfo.get(1).bid_price}"   style="margin-left: 100px; font-size: 50px;"  >14,400</output></p>
 
           <!--입찰 버튼-->
           <button type="button" th:if="${member}!=null" class="btn btn-secondary btn-lg" id="bidding" style="float: right;"
@@ -278,7 +278,7 @@
 
 
       <form method="post" th:if="${member}!=null" th:action="@{/auction/{auctionId}/{userId}(auctionId=${auction.auctionId},userId=${member.id})}" th:object="${bidForm}">
-        <!-- 일찹 상세 페이지 -->
+        <!-- 입찰 상세 페이지 -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <!--입찰 상세 페이지 중앙 정렬-->
           <div class="modal-dialog modal-dialog-centered">
@@ -297,6 +297,9 @@
               <div class="modal-footer">
                 <!--하단 닫기 버튼-->
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                <a th:href="@{mailto:{to}(to=${member.getEmail()},subject='link',body='link-body')}">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">1:1 채팅</button>
+                </a>
                 <button type="submit" class="btn btn-primary">입찰하기</button>
               </div>
             </div>

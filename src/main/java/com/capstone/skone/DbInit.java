@@ -3,7 +3,6 @@ package com.capstone.skone;
 import com.capstone.skone.auction.application.AuctionService;
 import com.capstone.skone.auction.domain.Auction;
 import com.capstone.skone.auction.domain.BidInfo;
-import com.capstone.skone.auction.infrastructure.AuctionRepository;
 import com.capstone.skone.auth.application.MemberService;
 import com.capstone.skone.auth.domain.member.Member;
 import com.capstone.skone.auth.dto.MemberDto;
@@ -23,7 +22,6 @@ public class DbInit {
 
     @PostConstruct
     private void AuctionInit(){
-
 
         MemberDto memberDto = new MemberDto();
         memberDto.setEmail("1234");
@@ -55,5 +53,4 @@ public class DbInit {
             auctionService.createBidInfo(bidInfo);
         }
     }
-
 }
