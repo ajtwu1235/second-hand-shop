@@ -1,16 +1,19 @@
 package com.capstone.skone.chat.presentaion;
 
 import com.capstone.skone.chat.application.ChatService;
+
 import com.capstone.skone.chat.dto.ChatRoom;
+import com.capstone.skone.chat.dto.ChatRoomNameDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -30,11 +33,11 @@ public class ChatRoomController {
   public List<ChatRoom> room() {
     return chatService.findAllRoom();
   }
-  // 채팅방 생성
-  @PostMapping("room")
-  @ResponseBody
-  public ChatRoom createRoom(@RequestParam String name) {
-    return chatService.createRoom(name);
+
+  //채팅방 생성
+  @PostMapping(value = "room", consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ChatRoom createRoom(@RequestBody ChatRoomNameDto name) {
+    return chatService.createRoom(name.getName());
   }
   // 채팅방 입장 화면
   @GetMapping("room/enter/{roomId}")
