@@ -48,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
    */
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests()
+    http.csrf().disable()
+        .authorizeRequests()
         // 페이지 권한 설정
         .antMatchers("/info").hasRole("MEMBER") // MEMBER, ADMIN만 접근 허용
         .antMatchers("/admin").hasRole("ADMIN")// ADMIN만 접근 허용
@@ -68,9 +69,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .invalidateHttpSession(true) // HTTP Session 초기화
         .deleteCookies("JSESSIONID") // 특정 쿠키 제거
         .and()
-//        .csrf().disable()
+
         // 403 예외처리 핸들링
-        .exceptionHandling().accessDeniedPage("/denied");
+     .exceptionHandling().accessDeniedPage("/denied");
   }
 
   /**
