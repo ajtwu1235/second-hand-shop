@@ -150,7 +150,7 @@
     <div>
       <h2>{{room.name}}</h2>
     </div>
-    <div class="item yourmsg on" v-for="message in messages">
+    <div :class="{'item yourmsg on':sender !== message.sender,'item mymsg on':sender === message.sender}" v-for="message in messages">
       <div class="box">
         <p class="msg">{{message.sender}} {{message.message}}</p>
       </div>
@@ -224,7 +224,7 @@
         this.message = '';
       },
       recvMessage: function(recv) {
-        this.messages.unshift({"type":recv.type,"sender":recv.type=='ENTER'?'[알림]':recv.sender,"message":recv.message})
+        this.messages.push({"type":recv.type,"sender":recv.type=='ENTER'?'[알림]':recv.sender,"message":recv.message})
       }
     }
   });
