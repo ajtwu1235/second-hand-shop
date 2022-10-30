@@ -351,7 +351,7 @@
         <div class="card mb-3">
             <!--상품 사진-->
             <div class="text-center">
-               <img  th:src="|/static/files/${detail.filename}|" class="rounded" alt="..." width=400px, height=400px>
+               <img th:src="|/static/files/${detail.filename}|" class="rounded" alt="..." width=400px, height=400px>
             </div>
 
             <div class="card" style="width: 400px; ">
@@ -398,19 +398,19 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <p href="...">ID:</p>
+                                    <p href="..." name="board_id" th:text="|ID : ${detail.id}|">ID:</p>
+                                    <input type="text" name="board_id" th:value="${detail.getId()}" readonly hidden>
                                     <p href="...">제목</p>
                                     <input type="text" name="title" class="form-control" placeholder="제목을 입력하세요">
                                     <br/>
-                                    <select class="form-select" name="category" type="product_Month"
+                                    <select class="form-select" name="reason" type="product_Month"
                                             aria-label="product_Month"
                                             id="product_EndDate">
-                                        <option selected value="select_Month" hidden>신고사유</option>
-                                        <option th:value="1">비고1</option>
-                                        <option th:value="2">비고2</option>
-                                        <option th:value="3">비고3</option>
-                                        <option th:value="4">비고4</option>
-                                        <option th:value="5">비고5</option>
+                                        <option selected hidden>신고사유</option>
+                                        <option th:value="사기">사기</option>
+                                        <option th:value="부정적인태도">부정적인태도</option>
+                                        <option th:value="욕설">욕설</option>
+                                        <option th:value="허위매물">허위 매물</option>
                                     </select>
                                     <br/>
                                     <p href="...">상세 내용</p>
