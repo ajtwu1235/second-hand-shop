@@ -26,7 +26,7 @@ public class MailSender {
     private MailLogger logger;
 
 
-    public String sendMail(){
+    public String sendMail(String AddressTo){
         String host = "smtp.naver.com";
         //admin email, password
         String adminMail = "skone_ad@naver.com";
@@ -51,9 +51,9 @@ public class MailSender {
             message.setFrom(new InternetAddress(adminMail));
 
             //수신자 이메일(Address To_addressTo)
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress("tyto_alba@naver.com"));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(AddressTo));
             // 메일 제목
-            message.setSubject("Skone Test Title");
+            message.setSubject("Skone Test Title 입니다.");
             // 메일 내용
             message.setText("Scone Chat Link");
             // send the message

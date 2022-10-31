@@ -1,3 +1,4 @@
+/*
 package com.capstone.skone;
 
 import com.capstone.skone.auction.application.AuctionService;
@@ -54,3 +55,4 @@ public class DbInit {
         }
     }
 }
+*/
