@@ -2,7 +2,7 @@ package com.capstone.skone.chat.presentaion;
 
 import com.capstone.skone.chat.application.ChatService;
 
-import com.capstone.skone.chat.dto.ChatRoom;
+import com.capstone.skone.chat.dto.ChatRoomInfo;
 import com.capstone.skone.chat.dto.ChatRoomNameDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -31,13 +31,13 @@ public class ChatRoomController {
   // 모든 채팅방 목록 반환
   @GetMapping("rooms")
   @ResponseBody
-  public List<ChatRoom> room() {
-    return chatService.findAllRoom();
+  public List<ChatRoomInfo> room() {
+    return chatService.AllChatRooms();
   }
 
   //채팅방 생성
   @PostMapping(value = "room", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ChatRoom createRoom(@RequestBody ChatRoomNameDto name) {
+  public ChatRoomInfo createRoom(@RequestBody ChatRoomNameDto name) {
     return chatService.createRoom(name.getName());
   }
 
@@ -51,7 +51,7 @@ public class ChatRoomController {
   // 특정 채팅방 조회
   @GetMapping("room/{roomId}")
   @ResponseBody
-  public ChatRoom roomInfo(@PathVariable String roomId) {
-    return chatService.findById(roomId);
+  public ChatRoomInfo roomInfo(@PathVariable String roomId) {
+    return chatService.searchChatRoom(roomId);
   }
 }

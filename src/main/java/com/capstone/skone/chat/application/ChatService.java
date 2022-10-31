@@ -1,12 +1,13 @@
 package com.capstone.skone.chat.application;
 
-import com.capstone.skone.chat.dto.ChatRoom;
+import com.capstone.skone.chat.domain.ChatRoom;
+import com.capstone.skone.chat.dto.ChatRoomInfo;
+import com.capstone.skone.chat.infrastructure.ChatRepository;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import javax.annotation.PostConstruct;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,33 +16,44 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 public class ChatService {
-
-  private Map<String, ChatRoom> chatRooms;
-
-  @PostConstruct
-  //의존관게 주입완료되면 실행되는 코드
-  private void init() {
-    chatRooms = new LinkedHashMap<>();
-  }
+  private final ChatRepository chatRepository;
 
   //채팅방 불러오기
-  public List<ChatRoom> findAllRoom() {
-    //채팅방 최근 생성 순으로 반환
-    List<ChatRoom> result = new ArrayList<>(chatRooms.values());
-    Collections.reverse(result);
+  public List<ChatRoomInfo> AllChatRooms() {
+    List<ChatRoom> AllChatRooms = new ArrayList<>((Collection) chatRepository.findAll());
+    List<ChatRoomInfo> result = new ArrayList<>();
+    for(ChatRoom chatRooms : AllChatRooms){
+      System.out.println("====================== ");
+      System.out.println(chatRooms.getRoomName());
+      System.out.println(chatRooms.getRoomId());
+    }
 
+    for(ChatRoom chatRoom: AllChatRooms){
+      result.add(new ChatRoomInfo(chatRoom.getRoomId(), chatRoom.getRoomName()));
+    }
+    Collections.reverse(result);
     return result;
   }
 
   //채팅방 하나 불러오기
-  public ChatRoom findById(String roomId) {
-    return chatRooms.get(roomId);
+  public ChatRoomInfo searchChatRoom(String roomId) {
+    Optional<ChatRoom> chatRoom = chatRepository.findById(roomId);
+
+    return new ChatRoomInfo(chatRoom.get().getRoomId(), chatRoom.get().getRoomName());
   }
 
   //채팅방 생성
-  public ChatRoom createRoom(String name) {
-    ChatRoom chatRoom = ChatRoom.create(name);
-    chatRooms.put(chatRoom.getRoomId(), chatRoom);
-    return chatRoom;
+  public ChatRoomInfo createRoom(String name) {
+    ChatRoomInfo chatRoomInfo = ChatRoomInfo.create(name);
+    chatRepository.save(
+        ChatRoom.builder()
+            .roomName(chatRoomInfo.getRoomName())
+            .roomId(chatRoomInfo.getRoomId())
+            .build()
+    );
+    System.out.println("=========================");
+    System.out.println(chatRoomInfo.getRoomId());
+    System.out.println(chatRoomInfo.getRoomName());
+    return chatRoomInfo;
   }
 }

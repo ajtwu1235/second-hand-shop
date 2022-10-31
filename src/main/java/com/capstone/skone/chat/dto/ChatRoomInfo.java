@@ -1,6 +1,7 @@
 package com.capstone.skone.chat.dto;
 
 import java.util.UUID;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,14 +9,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ChatRoom {
+@AllArgsConstructor
+public class ChatRoomInfo {
 
   private String roomId;
   private String roomName;
 
 
-  public static ChatRoom create(String name) {
-    ChatRoom room = new ChatRoom();
+  public static ChatRoomInfo create(String name) {
+    ChatRoomInfo room = new ChatRoomInfo();
     room.roomId = UUID.randomUUID().toString();
     room.roomName = name;
     return room;

@@ -1,6 +1,6 @@
 package com.capstone.skone.board.domain;
 
-import com.capstone.skone.chat.domain.BaseTimeEntity;
+import com.capstone.skone.util.domain.BaseTimeEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
