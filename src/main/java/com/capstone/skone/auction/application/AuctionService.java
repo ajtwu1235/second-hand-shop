@@ -4,6 +4,7 @@ import com.capstone.skone.auction.domain.Auction;
 import com.capstone.skone.auction.domain.BidInfo;
 import com.capstone.skone.auction.infrastructure.AuctionRepository;
 import com.capstone.skone.auction.infrastructure.BidInfoRepository;
+import com.capstone.skone.auction.util.AuctionTimeThread;
 import com.capstone.skone.auth.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,8 +22,14 @@ public class AuctionService {
     private final AuctionRepository auctionRepository;
     private final BidInfoRepository bidInfoRepository;
 
+
     public void createAuction(Auction auction){
         auctionRepository.save(auction);
+        String addressTo = getSingleAuction(auction.getAuctionNumber()).getMember().getEmail();
+        String addressFrom = get_First_User();
+        AuctionTimeThread auctionTimeThread = new AuctionTimeThread(auction, auctionRepository,addressTo);
+        AuctionTimeThread auctionTimeThread_From = new AuctionTimeThread(auction, auctionRepository, addressFrom);
+
     }
 
     public Page<Auction> getAllAuction(Pageable pageable){
@@ -30,6 +37,19 @@ public class AuctionService {
     }
 
     public Auction getSingleAuction(Long id){ return auctionRepository.findById(id).get();}
+
+    /**
+     * 1등 입찰자 email 받아오는 메소드
+     */
+    public String get_First_User(){
+        List<BidInfo> all = bidInfoRepository.findAll();
+        if(all.size()==0){
+            return "입찰자가 없습니다.";
+        }
+
+        Collections.sort(all,(a,b)->b.getBid_Price()-a.getBid_Price());
+        return all.get(0).getUserName();
+    }
 
     /**
      입찰이 가능한지 판별하는 메소드
@@ -94,6 +114,12 @@ public class AuctionService {
         auction.addBidInfos(bidInfo);
 
         auctionRepository.save(auction);
+    }
+
+    public int get_addressFrom(){
+
+
+        return 0;
     }
 
     /**
