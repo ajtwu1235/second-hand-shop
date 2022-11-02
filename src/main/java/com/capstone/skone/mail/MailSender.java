@@ -18,13 +18,11 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 //https://ktko.tistory.com/entry/JAVA-SMTP%EC%99%80-Mail-%EB%B0%9C%EC%86%A1%ED%95%98%EA%B8%B0Google-Naver
+@RequiredArgsConstructor
 public class MailSender {
 
-
-    @Autowired
-    private JavaMailSender mailSender;
-    private MailLogger logger;
-
+    private final JavaMailSender mailSender;
+    private final MailLogger logger;
 
     public String sendMail(String AddressTo){
         String host = "smtp.naver.com";
