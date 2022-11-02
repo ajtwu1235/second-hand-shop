@@ -38,7 +38,7 @@ public class BoarderController {
 
   @GetMapping("/board")
   public String viewHome() {
-    return "board/board";
+    return "board/board_init";
   }
 
   @PostMapping("/post")
