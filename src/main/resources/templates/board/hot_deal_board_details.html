@@ -173,6 +173,57 @@
             transform: translateX(10px);
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <!--<script src="/webjars/axios/0.17.1/dist/axios.min.js"></script>-->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let chatrooms = []
+        let room_name = [[${detail.getTitle()}]];
+
+        function findAllRoom() {
+            axios.get('/chat/rooms').then(response => {
+                console.log(response.data.length)
+                for (let i = 0; i < response.data.length; i++) {
+                    console.log(2)
+                    if (response.data[i].roomName === [[${detail.getTitle()}]]) {
+                        enterRoom(response.data[i].roomId)
+                    }
+                }
+            });
+        }
+
+        function createRoom() {
+            axios.post(
+                '/chat/room',
+                {name: room_name},
+                {
+                    header: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
+            .then(
+                response => {
+                    alert("방 개설에 성공하였습니다.")
+                    room_name = '';
+                    findAllRoom()
+                }
+            )
+            .catch(response => {
+                console.log(response)
+                alert("채팅방 개설에 실패하였습니다.");
+            });
+
+        }
+
+        function enterRoom(roomId) {
+            localStorage.setItem('wschat.sender', [[${detail.getNickname()}]]);
+            localStorage.setItem('wschat.roomId', roomId);
+            location.href = "/chat/room/enter/" + roomId;
+        }
+
+        /*]]>*/
+    </script>
 
 </head>
 
@@ -300,11 +351,12 @@
         <div class="card mb-3">
             <!--상품 사진-->
             <div class="text-center">
-               <img  th:src="|/static/files/${detail.filename}|" class="rounded" alt="..." width=400px, height=400px>
+               <img th:src="|/static/files/${detail.filename}|" class="rounded" alt="..." width=400px, height=400px>
             </div>
 
             <div class="card" style="width: 400px; ">
-                <div class="card-body">
+                <form th:action="@{/board/remove}" th:object="${createBoardDto}" method="post">
+                    <input type="hidden" name="id" th:value="${detail.getId()}">
                     <!--프로필 사진-->
                     <div class="box" style="background: #ffffff;">
                         <img class="profile" th:src="|/static/img/test1.PNG|" alt="...">
@@ -320,11 +372,61 @@
                     <br />
                     <p class="card-text" th:text="${detail.content}">마인크래프트 무드등입니다. 사용한지 얼마 안됐으며 급하게 처분하느라 올립니다.
                         관심있는 분은 1:1 채팅 걸어주세요 </p>
-                    <button type="button" class="btn btn-sm btn-outline-secondary btn-chat">1:1채팅</button>
+                    <button type="button" onclick="createRoom()" class="btn btn-sm btn-outline-secondary btn-chat">1:1채팅</button>
                     <!--btn-chat-->
-                    <button type="button" class="btn btn-sm btn-outline-secondary btn-report">신고</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-report"
+                            data-bs-toggle="modal"
+                            data-bs-target="#reportModal">신고
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-outline-secondary btn-delete">삭제</button>
                     <!--btn-report-->
+                </form>
                 </div>
+                <form th:action="@{/report}" method="post" enctype="application/x-www-form-urlencoded">
+                    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel"
+                         aria-hidden="true">
+                        <!--신고 상세 페이지 (모달 기능) 정렬-->
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="reportModalLabel">신고</h5>
+
+                                    <!--상단 닫기 버튼, 예외적으로 아무 바탕 클릭시 닫기 설정-->
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <p href="..." name="board_id" th:text="|ID : ${detail.id}|">ID:</p>
+                                    <input type="text" name="board_id" th:value="${detail.getId()}" readonly hidden>
+                                    <p href="...">제목</p>
+                                    <input type="text" name="title" class="form-control" placeholder="제목을 입력하세요">
+                                    <br/>
+                                    <select class="form-select" name="reason" type="product_Month"
+                                            aria-label="product_Month"
+                                            id="product_EndDate">
+                                        <option selected hidden>신고사유</option>
+                                        <option th:value="사기">사기</option>
+                                        <option th:value="부정적인태도">부정적인태도</option>
+                                        <option th:value="욕설">욕설</option>
+                                        <option th:value="허위매물">허위 매물</option>
+                                    </select>
+                                    <br/>
+                                    <p href="...">상세 내용</p>
+                                    <textarea class="form-control" name="content" rows="7"
+                                              placeholder="내용을 자세히 입력해주세요"></textarea>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <!--하단 닫기 버튼-->
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                    <button type="submit" class="btn btn-outline-secondary btn-report">신고하기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
         <br />

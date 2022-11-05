@@ -1,4 +1,4 @@
-package com.capstone.skone.chat.domain;
+package com.capstone.skone.util.domain;
 
 
 import java.time.LocalDateTime;
