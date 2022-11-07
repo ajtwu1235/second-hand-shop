@@ -1,5 +1,6 @@
 package com.capstone.skone.chat.application;
 
+import com.capstone.skone.auth.application.MemberService;
 import com.capstone.skone.chat.domain.ChatRoom;
 import com.capstone.skone.chat.dto.ChatRoomInfo;
 import com.capstone.skone.chat.infrastructure.ChatRepository;
@@ -22,12 +23,6 @@ public class ChatService {
   public List<ChatRoomInfo> AllChatRooms() {
     List<ChatRoom> AllChatRooms = new ArrayList<>((Collection) chatRepository.findAll());
     List<ChatRoomInfo> result = new ArrayList<>();
-    for(ChatRoom chatRooms : AllChatRooms){
-      System.out.println("====================== ");
-      System.out.println(chatRooms.getRoomName());
-      System.out.println(chatRooms.getRoomId());
-    }
-
     for(ChatRoom chatRoom: AllChatRooms){
       result.add(new ChatRoomInfo(chatRoom.getRoomId(), chatRoom.getRoomName()));
     }
@@ -38,7 +33,6 @@ public class ChatService {
   //채팅방 하나 불러오기
   public ChatRoomInfo searchChatRoom(String roomId) {
     Optional<ChatRoom> chatRoom = chatRepository.findById(roomId);
-
     return new ChatRoomInfo(chatRoom.get().getRoomId(), chatRoom.get().getRoomName());
   }
 
@@ -51,9 +45,6 @@ public class ChatService {
             .roomId(chatRoomInfo.getRoomId())
             .build()
     );
-    System.out.println("=========================");
-    System.out.println(chatRoomInfo.getRoomId());
-    System.out.println(chatRoomInfo.getRoomName());
     return chatRoomInfo;
   }
 }

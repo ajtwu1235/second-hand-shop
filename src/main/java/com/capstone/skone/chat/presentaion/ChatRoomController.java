@@ -1,5 +1,6 @@
 package com.capstone.skone.chat.presentaion;
 
+import com.capstone.skone.auth.application.MemberService;
 import com.capstone.skone.chat.application.ChatService;
 
 import com.capstone.skone.chat.dto.ChatRoomInfo;
@@ -24,7 +25,7 @@ public class ChatRoomController {
 
   // 채팅 리스트 화면
   @GetMapping("room")
-  public String rooms(Model model) {
+  public String rooms() {
     return "chat/room";
   }
 
@@ -44,6 +45,9 @@ public class ChatRoomController {
   // 채팅방 입장 화면
   @GetMapping("room/enter/{roomId}")
   public String roomDetail(Model model, @PathVariable String roomId) {
+    String nickname =  MemberService.currentUserNickname();
+    System.out.println("여기 지나긴하냐?");
+    model.addAttribute("nickname", nickname);
     model.addAttribute("roomId", roomId);
     return "chat/roomdetail";
   }

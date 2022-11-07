@@ -1,5 +1,6 @@
 package com.capstone.skone.board.presentaion;
 
+import com.capstone.skone.auth.application.MemberService;
 import com.capstone.skone.board.application.HotDealService;
 import com.capstone.skone.board.domain.Board;
 import com.capstone.skone.board.domain.HotDealBoard;
@@ -78,6 +79,7 @@ public class BoarderController {
   @GetMapping("/board/{id}")
   public String detailBoard(@PathVariable("id") Long id, Model model) {
     DetailBoardDto detail = boardService.getDetailBoard(id);
+    model.addAttribute("nickname", MemberService.currentUserNickname());
     model.addAttribute("detail", detail);
     return "board/board_details";
   }
@@ -101,6 +103,7 @@ public class BoarderController {
   @GetMapping("/hot_deal/{id}")
   public String detailHotDealBoard(@PathVariable("id") Long id, Model model) {
     DetailHotDealBoardDto detail = hotDealService.getDetailHotDealBoard(id);
+    model.addAttribute("nickname", MemberService.currentUserNickname());
     model.addAttribute("detail", detail);
     return "board/hot_deal_board_details";
   }
