@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,9 +105,10 @@
   </symbol>
 
   <!--경매 아이콘 불러오기-->
+  <!--경매 아이콘 불러오기-->
   <symbol id="auction1" viewBox="0 0 16 16">
     <path
-        d="M3.1.7a.5.5 0 0 1 .4-.2h9a.5.5 0 0 1 .4.2l2.976 3.974c.149.185.156.45.01.644L8.4 15.3a.5.5 0 0 1-.8 0L.1 5.3a.5.5 0 0 1 0-.6l3-4zm11.386 3.785-1.806-2.41-.776 2.413 2.582-.003zm-3.633.004.961-2.989H4.186l.963 2.995 5.704-.006zM5.47 5.495 8 13.366l2.532-7.876-5.062.005zm-1.371-.999-.78-2.422-1.818 2.425 2.598-.003zM1.499 5.5l5.113 6.817-2.192-6.82L1.5 5.5zm7.889 6.817 5.123-6.83-2.928.002-2.195 6.828z">
+            d="M3.1.7a.5.5 0 0 1 .4-.2h9a.5.5 0 0 1 .4.2l2.976 3.974c.149.185.156.45.01.644L8.4 15.3a.5.5 0 0 1-.8 0L.1 5.3a.5.5 0 0 1 0-.6l3-4zm11.386 3.785-1.806-2.41-.776 2.413 2.582-.003zm-3.633.004.961-2.989H4.186l.963 2.995 5.704-.006zM5.47 5.495 8 13.366l2.532-7.876-5.062.005zm-1.371-.999-.78-2.422-1.818 2.425 2.598-.003zM1.499 5.5l5.113 6.817-2.192-6.82L1.5 5.5zm7.889 6.817 5.123-6.83-2.928.002-2.195 6.828z">
     </path>
   </symbol>
 </svg>
@@ -135,7 +135,7 @@
 
         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
           <li>
-            <a href="#" class="nav-link text-white">
+            <a href="/" class="nav-link text-white">
               <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                 <use xlink:href="#home"></use>
               </svg>
@@ -143,7 +143,7 @@
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link text-white">
+            <a href="/hot_deal" class="nav-link text-white">
               <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                 <use xlink:href="#table"></use>
               </svg>
@@ -151,19 +151,11 @@
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link text-white">
+            <a href="/auctions" th:onclick="|location.href='@{/auctions}'|" class="nav-link text-white">
               <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                 <use xlink:href="#auction1"></use>
               </svg>
               경매
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                <use xlink:href="#people-circle"></use>
-              </svg>
-              사용자
             </a>
           </li>
         </ul>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -18,17 +19,19 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 //https://ktko.tistory.com/entry/JAVA-SMTP%EC%99%80-Mail-%EB%B0%9C%EC%86%A1%ED%95%98%EA%B8%B0Google-Naver
-@RequiredArgsConstructor
 public class MailSender {
 
-    private final JavaMailSender mailSender;
-    private final MailLogger logger;
+    @Autowired
+    private JavaMailSender mailSender;
+    private MailLogger logger;
 
-    public String sendMail(String AddressTo){
+    public String sendMail(String AddressTo, String AddressFrom){
         String host = "smtp.naver.com";
         //admin email, password
-        String adminMail = "skone_ad@naver.com";
-        String adminMailPw = "skone-ad@";
+        //String adminMail = "skone_ad@naver.com";
+        String adminMail = "skone_tmddnjs@naver.com";
+       //String adminMailPw = "skone-ad@@";
+        String adminMailPw = "SKONEtest4587@@";
 
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.naver.com");
@@ -38,7 +41,8 @@ public class MailSender {
         prop.put("mail.smtp.ssl.trust", "smtp.naver.com");
 
         System.out.println("prop = " + prop);
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //Session session1 = Session.getDefaultInstance(prop);
         Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(adminMail, adminMailPw);
@@ -46,16 +50,24 @@ public class MailSender {
         });
         try {
             MimeMessage message = new MimeMessage(session);
+            MimeMessage messageFrom = new MimeMessage(session);
+            //발신자 이메일 확인
             message.setFrom(new InternetAddress(adminMail));
-
+            messageFrom.setFrom(new InternetAddress(adminMail));
             //수신자 이메일(Address To_addressTo)
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(AddressTo));
+            messageFrom.addRecipient(Message.RecipientType.TO, new InternetAddress(AddressFrom));
             // 메일 제목
             message.setSubject("Skone Test Title 입니다.");
+            messageFrom.setSubject("Skone Test Title 입니다.");
+
             // 메일 내용
-            message.setText("Scone Chat Link");
+            message.setText("안녕하세요 SKONE 입니다. 채팅방 링크는 다음과 같습니다. localhost:8080/chat/room");
+            messageFrom.setText("안녕하세요 SKONE 입니다. 채팅방 링크는 다음과 같습니다. localhost:8080/chat/room");
             // send the message
             Transport.send(message);
+            Transport.send(messageFrom);
+            System.out.println("Success Message Send");
             System.out.println("Success Message Send");
         } catch (MessagingException e) {
             e.printStackTrace();
@@ -165,6 +177,4 @@ public class MailSender {
         }
         return "SEND SUCCESS";
     }
-
-
 }
