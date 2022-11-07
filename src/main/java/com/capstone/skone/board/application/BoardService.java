@@ -1,5 +1,6 @@
 package com.capstone.skone.board.application;
 
+import com.capstone.skone.auth.application.MemberService;
 import com.capstone.skone.board.commen.HotDealTimer;
 import com.capstone.skone.board.domain.Board;
 import com.capstone.skone.board.dto.CreateBoardDto;
@@ -9,6 +10,7 @@ import com.capstone.skone.board.infrastructure.BoardRepository;
 import com.capstone.skone.board.infrastructure.FileRepository;
 import com.capstone.skone.board.infrastructure.HotDealRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -49,11 +51,22 @@ public class BoardService {
     }
   }
 
+  public List<String> findByTiles(String nickname){
+    List<String> titles = new ArrayList<>();
+    for(Board board : boardRepository.findByNickname(nickname)){
+      System.out.println("================");
+      System.out.println(board.getTitle());
+      titles.add(board.getTitle());
+    }
+    return titles;
+  }
+
   public Board selectBoard(Long id){
     Board  board = boardRepository.findById(id).orElse(null);
     System.out.println("board = " + board);
     return board;
   }
+
   @Transactional
   public void updateBoard(Long id, UpdateBoardDto updateBoardRequest) {
     Board board = boardRepository.findById(id).orElseThrow(() -> {

@@ -58,7 +58,7 @@ public class BoarderController {
         }
       }
 
-      String filePath = savePath + "\\" + files.getOriginalFilename();
+      String filePath = savePath + "//" + files.getOriginalFilename();
       files.transferTo(new File(filePath));
 
       CreateFileDto createFileDto = new CreateFileDto();
@@ -68,6 +68,7 @@ public class BoarderController {
 
       String fileName = fileService.saveFile(createFileDto);
       createBoardDto.setFilename(fileName);
+      createBoardDto.setNickname(MemberService.currentUserNickname());
       createBoardDto.setUserEmail(auth.getName());
       boardService.createBoard(createBoardDto);
     } catch (Exception e) {

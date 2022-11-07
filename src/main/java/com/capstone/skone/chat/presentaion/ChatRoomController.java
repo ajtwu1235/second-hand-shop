@@ -36,6 +36,13 @@ public class ChatRoomController {
     return chatService.AllChatRooms();
   }
 
+  // 모든 채팅방 목록 반환
+  @GetMapping("titleRooms")
+  @ResponseBody
+  public List<ChatRoomInfo> titleRooms() {
+    return chatService.titleChatRooms();
+  }
+
   //채팅방 생성
   @PostMapping(value = "room", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ChatRoomInfo createRoom(@RequestBody ChatRoomNameDto name) {
@@ -46,8 +53,6 @@ public class ChatRoomController {
   @GetMapping("room/enter/{roomId}")
   public String roomDetail(Model model, @PathVariable String roomId) {
     String nickname =  MemberService.currentUserNickname();
-    System.out.println("여기 지나긴하냐?");
-    model.addAttribute("nickname", nickname);
     model.addAttribute("roomId", roomId);
     return "chat/roomdetail";
   }

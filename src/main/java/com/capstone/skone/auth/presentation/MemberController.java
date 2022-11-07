@@ -110,7 +110,7 @@ public class MemberController {
     return "login/admin";
   }
 
-  @GetMapping(value = "/nickname", produces = "application/json; charset=UTF-8")
+  @GetMapping("/nickname")
   @ResponseBody
   public String getNickname(){
     return MemberService.currentUserNickname();

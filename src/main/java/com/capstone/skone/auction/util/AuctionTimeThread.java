@@ -27,8 +27,8 @@ public class AuctionTimeThread {
                 try {
                     System.out.println("옥션 종료");
                     System.out.println("String = " + addressTo);
-                    MailSender mailSender = new MailSender();
-                    mailSender.sendMail(addressTo);
+//                    MailSender mailSender = new MailSender();
+//                    mailSender.sendMail(addressTo);
 
                     auctionRepository.deleteById(auction.getAuctionNumber());
 
