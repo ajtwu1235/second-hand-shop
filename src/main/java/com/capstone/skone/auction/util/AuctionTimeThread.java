@@ -17,18 +17,19 @@ import java.util.TimerTask;
 public class AuctionTimeThread {
 
 
-    public AuctionTimeThread(Auction auction, AuctionRepository auctionRepository,String addressTo) {
+    public AuctionTimeThread(Auction auction, AuctionRepository auctionRepository,String addressTo, String addressFrom) {
 
 
-        String addressFrom;
+        //String addressFrom;
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
                 try {
                     System.out.println("옥션 종료");
                     System.out.println("String = " + addressTo);
-//                    MailSender mailSender = new MailSender();
-//                    mailSender.sendMail(addressTo);
+                    MailSender mailSender = new MailSender();
+
+                    mailSender.sendMail(addressTo,addressFrom);
 
                     auctionRepository.deleteById(auction.getAuctionNumber());
 

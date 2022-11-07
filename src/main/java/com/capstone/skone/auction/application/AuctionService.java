@@ -2,6 +2,7 @@ package com.capstone.skone.auction.application;
 
 import com.capstone.skone.auction.domain.Auction;
 import com.capstone.skone.auction.domain.BidInfo;
+import com.capstone.skone.auction.dto.AuctionDto;
 import com.capstone.skone.auction.infrastructure.AuctionRepository;
 import com.capstone.skone.auction.infrastructure.BidInfoRepository;
 import com.capstone.skone.auction.util.AuctionTimeThread;
@@ -26,9 +27,14 @@ public class AuctionService {
     public void createAuction(Auction auction){
         auctionRepository.save(auction);
         String addressTo = getSingleAuction(auction.getAuctionNumber()).getMember().getEmail();
-        String addressFrom = get_First_User();
-        AuctionTimeThread auctionTimeThread = new AuctionTimeThread(auction, auctionRepository,addressTo);
-        AuctionTimeThread auctionTimeThread_From = new AuctionTimeThread(auction, auctionRepository, addressFrom);
+        String addressFrom = get_First_User(auction);
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++");
+
+        System.out.println("addressFrom = " + addressFrom);
+
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++");
+        AuctionTimeThread auctionTimeThread = new AuctionTimeThread(auction, auctionRepository,addressTo,addressFrom);
+        //AuctionTimeThread auctionTimeThread_From = new AuctionTimeThread(auction, auctionRepository, addressFrom);
 
     }
 
@@ -41,8 +47,12 @@ public class AuctionService {
     /**
      * 1등 입찰자 email 받아오는 메소드
      */
-    public String get_First_User(){
+    public String get_First_User(Auction auction){
+
+        AuctionDto auctionDto = new AuctionDto(auction);
+
         List<BidInfo> all = bidInfoRepository.findAll();
+
         if(all.size()==0){
             return "입찰자가 없습니다.";
         }
@@ -56,7 +66,6 @@ public class AuctionService {
      최소 입찰 제한은..  1등가격 + 10%
      */
     public Boolean isBiding(Auction auction,int price){
-
 
         List<BidInfo> bidInfos = auction.getBidInfos();
         Collections.sort(bidInfos,(a, b)->b.getBid_Price()-a.getBid_Price());
@@ -116,11 +125,6 @@ public class AuctionService {
         auctionRepository.save(auction);
     }
 
-    public int get_addressFrom(){
-
-
-        return 0;
-    }
 
     /**
      * 1등 입찰 값을 불러오는 메소드, 2등 입찰 값을 불러오는 메소드
