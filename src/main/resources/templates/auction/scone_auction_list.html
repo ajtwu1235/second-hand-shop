@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Auction Page</title>
+    <title>경매 리스트 페이지</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="headers.css" rel="stylesheet">
 
@@ -84,13 +84,12 @@
 </head>
 
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!--부트스트랩 아이콘 문단-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!--부트스트랩 아이콘 문단-->
 
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="bootstrap" viewBox="0 0 118 94">
-
-            <title>Bootstrap</title>
 
             <!--
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -110,7 +109,7 @@
                 d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z">
             </path>
             <path fill-rule="evenodd"
-                d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z">
+                  d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z">
             </path>
         </symbol>
 
@@ -137,15 +136,8 @@
                     <!--스코네 로고-->
                     <a class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
                         <button class="btm_image" style="background-color:transparent; border:none;"><img
-                                src="스코네 로고 슬라임(노란꼬리버전3).gif"></button>
+                            th:src="|@{/static/img/skone_slime.png}|"></button>
                     </a>
-
-                    <!--<a href="/"
-                        class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                            <use xlink:href="#bootstrap"></use>
-                        </svg>
-                    </a>-->
 
                     <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                         <li>
@@ -181,61 +173,84 @@
                 <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search" style="margin-top: 38px;">
 
                 </form>
-                <!--이부분 빼고 싶으면 빼-->
-                <!--<div class="text-end">
-                    <button type="button" class="btn btn-light text-dark me-2">로그인</button>
-                    <button type="button" class="btn btn-primary">회원가입</button>
-                </div>-->
-
+                <div class="text-end">
+                </div>
             </div>
         </div>
         </div>
     </header>
 
     <body>
-        <div style="width: 1000px; height:100px; margin-left:auto; 
+    <div style="width: 1000px; height:100px; margin-left:auto;
         margin-right:auto; margin-top: 50px; border-radius: 0%;">
-            <!--경매 전체 리스트-->
-            <!--        //Form 하나생성-->
-            <form action="/auctions/del" th:method="post">
-                <table class="table table-bordered">
-                    <thead class="table table-light">
-                        <tr>
-                            <th scope="col">선택</th>
-                            <th scope="col">번호</th>
-                            <th scope="col">상품 이름</th>
-                            <th scope="col">판매자</th>
-                            <th scope="col">게시일</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="auction:${auctions}">
-                            <!--href태그 값을 통해 텍스트를 링크 경로 설정-->
-                            <td>
-                                <!--                             name 과 ID설정-->
-                                <input class="form-check-input" type="checkbox" name="auc_list"
-                                    th:value="${auction.auctionId}" id="ListCheckbox">
-                            </td>
-                            <th th:text="${auction.auctionId}" scope="row">1</th>
-                            <td><a href="url:" th:href="@{/auction/{id}(id=${auction.auctionId})}"
-                                    th:text="${auction.itemName}" style="color: black; text-decoration: none;">마인크래프트
-                                    무드등</a></td>
-                            <td><a href="url:" th:href="@{/auction/{id}(id=${auction.auctionId})}"
-                                    th:text="${auction.userName}" style="color: black; text-decoration: none;">수영하는
-                                    철새</a></td>
-                            <td th:text="${#strings.substring(auction.left_time,0,19)}" href="...">2022/02/22</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </form>
-
+        <!--경매 전체 리스트-->
+        <!--        //Form 하나생성-->
+        <form action="/auctions/del" th:method="post">
+            <table class="table table-bordered">
+                <thead class="table table-light">
+                <tr>
+                    <th scope="col">선택</th>
+                    <th scope="col">번호</th>
+                    <th scope="col">상품 이름</th>
+                    <th scope="col">판매자</th>
+                    <th scope="col">게시일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="auction:${auctions}">
+                    <!--href태그 값을 통해 텍스트를 링크 경로 설정-->
+                    <td>
+                        <!--                             name 과 ID설정-->
+                        <input class="form-check-input" type="checkbox" name="auc_list"
+                               th:value="${auction.auctionId}" id="ListCheckbox">
+                    </td>
+                    <th th:text="${auction.auctionId}" scope="row">1</th>
+                    <td><a href="url:" th:href="@{/auction/{id}(id=${auction.auctionId})}"
+                           th:text="${auction.itemName}" style="color: black; text-decoration: none;">마인크래프트
+                        무드등</a></td>
+                    <td><a href="url:" th:href="@{/auction/{id}(id=${auction.auctionId})}"
+                           th:text="${auction.userName}" style="color: black; text-decoration: none;">수영하는
+                        철새</a></td>
+                    <td th:text="${#strings.substring(auction.left_time,0,19)}" href="...">2022/02/22</td>
+                </tr>
+                </tbody>
+            </table>
             <div style="width: 1000px;">
                 <button type="button" th:onclick="|location.href='@{/auction/reg}'|"
-                class="btn btn text-white" style="background-color: #FFC107;">경매 상품 등록</button>
-                <button type="submit" class="btn btn text-white" style="background-color: #FFC107;">경매 상품 삭제</button>
+                        class="btn btn text-white" style="background-color: #FFC107;">경매 상품 등록</button>
+                <button type="submit"
+                        class="btn btn text-white"style="background-color: #FFC107;">경매 상품 삭제</button>
             </div>
-        </div>
+            <!--하단 페이지 넘기는 태그 (페이지네이션)-->
+            <div class="Page_num" style="margin-top: 50px;">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <!--href 태그에서 각 페이지로 설정-->
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true" style="color: #FFC107;">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" style="color: #FFC107;" th:href="@{?page=0}"
+                                                 href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" style="color: #FFC107;" th:href="@{?page=1}"
+                                                 href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" style="color: #FFC107;" th:href="@{?page=2}"
+                                                 href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" style="color: #FFC107;" th:href="@{?page=3}"
+                                                 href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" style="color: #FFC107;" th:href="@{?page=4}"
+                                                 href="#">5</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true" style="color: #FFC107;">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </form>
+    </div>
 
     </body>
 
@@ -243,34 +258,7 @@
     <!--경매 상품 등록/삭제 및 페이지 네이션 footer 안으로 보기 좋게 분리해놨음-->
     <footer>
 
-        <!--하단 페이지 넘기는 태그 (페이지네이션)-->
-        <div class="Page_num" style="margin-top: 50px;">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <!--href 태그에서 각 페이지로 설정-->
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true" style="color: #FFC107;">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" style="color: #FFC107;" th:href="@{?page=0}"
-                            href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" style="color: #FFC107;" th:href="@{?page=1}"
-                            href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" style="color: #FFC107;" th:href="@{?page=2}"
-                            href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" style="color: #FFC107;" th:href="@{?page=3}"
-                            href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" style="color: #FFC107;" th:href="@{?page=4}"
-                            href="#">5</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true" style="color: #FFC107;">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+
 
         <!--밑에 있는 문장들은 하림이가 사용하는 메인 페이지에서 사용하는 페이징인데 쓸만한것 같아서 넣어봤어
                 경로는 바꿔야 될꺼야/디자인은 물론 바꿔놨어-->
@@ -316,5 +304,4 @@
                     </nav>
                 </div>-->
     </footer>
-
 </html>

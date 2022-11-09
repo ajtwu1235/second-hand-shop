@@ -9,7 +9,7 @@
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.88.1">
 
-  <title>Login</title>
+  <title>로그인 페이지</title>
 
   <style>
     .bd-placeholder-img {
@@ -41,7 +41,7 @@
     <p th:if="${loginError}" class="error">Wrong user or password</p>
     <!-- 로그인 시 아이디의 name 애트리뷰트 값은 username -->
     <!-- 파라미터명을 변경하고 싶을 경우 config class formlogin()에서 .usernameParameter("") 명시 -->
-    <img class="mb-4" th:src="|@{/static/img/scone.png}|" alt="" width="72" height="57">
+    <img class="mb-4" th:src="|@{/static/img/skone_slime.png}|" alt="" width="200" height="200">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
     <div class="form-floating">
       <input type="text" name="username" class="form-control" id="floatingInput" placeholder="name@example.com">
@@ -52,11 +52,11 @@
       <label for="floatingPassword">Password</label>
     </div>
 
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    <button class="btn btn text-white" style="background-color: #FFC107;" type="submit" >Sign in</button>
 
-<!--    <input type="text" name="username" placeholder="이메일 입력해주세요"/>-->
-<!--    <input type="password" name="password" placeholder="비밀번호"/>-->
-<!--    <button type="submit">로그인</button>-->
+    <!--    <input type="text" name="username" placeholder="이메일 입력해주세요"/>-->
+    <!--    <input type="password" name="password" placeholder="비밀번호"/>-->
+    <!--    <button type="submit">로그인</button>-->
   </form>
 </main>
 </body>

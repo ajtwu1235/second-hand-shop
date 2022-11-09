@@ -53,7 +53,7 @@ public class AuctionController {
 
         // 옥션 ->  옥션DTO변환
         List<AuctionDto> all = auctions.stream().map(o -> new AuctionDto(o))
-                .collect(Collectors.toList());
+            .collect(Collectors.toList());
 
         model.addAttribute("auctions",all);
 
@@ -67,7 +67,7 @@ public class AuctionController {
      */
     @GetMapping("/auction/{id}")
     public String auction_detail(@PathVariable Long id , @ModelAttribute BidForm bidForm,
-                                 Authentication authentication, Model model){
+        Authentication authentication, Model model){
         Auction auction = auctionService.getSingleAuction(id);
         Member member = (Member) authentication.getPrincipal();
 
@@ -89,7 +89,7 @@ public class AuctionController {
      */
     @PostMapping("/auction/{auctionId}/{userId}")
     public String auction_bid(@PathVariable Long auctionId, @PathVariable Long userId,
-                              @ModelAttribute BidForm bidForm,Model model){
+        @ModelAttribute BidForm bidForm,Model model){
 
         Auction auction = auctionService.getSingleAuction(auctionId);
 
@@ -115,7 +115,7 @@ public class AuctionController {
     }
 
     /**
-    옥션 상품 등록 페이지
+     옥션 상품 등록 페이지
      */
     @GetMapping("/auction/reg")
     public String auction_reg_form(@ModelAttribute AuctionRegDto auctionRegDto){
@@ -160,13 +160,13 @@ public class AuctionController {
         List<BidInfo> arr= new ArrayList<>();
         Member member = memberService.loadUserByUsername(auth.getName());
         Auction auction = Auction.builder()
-                .member(member)
-                .title(auctionRegDto.getItemName())
-                .content(auctionRegDto.getItemDetail())
-                .fileName(auctionRegDto.getFileName())
-                .initPrice(auctionRegDto.getPrice())
-                .bidInfos(arr)
-                .build();
+            .member(member)
+            .title(auctionRegDto.getItemName())
+            .content(auctionRegDto.getItemDetail())
+            .fileName(auctionRegDto.getFileName())
+            .initPrice(auctionRegDto.getPrice())
+            .bidInfos(arr)
+            .build();
         auctionService.createAuction(auction);
         //초기 입찰가 설정 부분
         BidInfo bidInfo = new BidInfo();
@@ -177,9 +177,7 @@ public class AuctionController {
         arr.add(bidInfo);
         auctionService.createBidInfo(bidInfo);
 
-
-
-        return "redirect:/";
+        return "redirect:/auctions";
     }
 
     @PostMapping("/auctions/del")
@@ -206,7 +204,6 @@ public class AuctionController {
         }
         System.out.println("-----작성자가 아닙니다.-----");
 
-        return "redirect:/";
+        return "redirect:/auctions";
     }
-
 }

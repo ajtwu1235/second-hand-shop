@@ -70,7 +70,6 @@ public class Member implements UserDetails {
     return password;
   }
 
-
   @Override
   public boolean isAccountNonExpired() {
     return true;

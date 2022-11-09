@@ -1,3 +1,4 @@
+
 package com.capstone.skone.auction.application;
 
 import com.capstone.skone.auction.domain.Auction;
@@ -27,13 +28,10 @@ public class AuctionService {
     public void createAuction(Auction auction){
         auctionRepository.save(auction);
         String addressTo = getSingleAuction(auction.getAuctionNumber()).getMember().getEmail();
-        String addressFrom = get_First_User(auction);
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++");
+        //String addressFrom = get_First_User(auction);
+        //String addressFrom = "tyto_alba@naver.com";
 
-        System.out.println("addressFrom = " + addressFrom);
-
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++");
-        AuctionTimeThread auctionTimeThread = new AuctionTimeThread(auction, auctionRepository,addressTo,addressFrom);
+        AuctionTimeThread auctionTimeThread = new AuctionTimeThread(auction, auctionRepository,addressTo);
         //AuctionTimeThread auctionTimeThread_From = new AuctionTimeThread(auction, auctionRepository, addressFrom);
 
     }
@@ -51,14 +49,19 @@ public class AuctionService {
 
         AuctionDto auctionDto = new AuctionDto(auction);
 
-        List<BidInfo> all = bidInfoRepository.findAll();
+        List<BidInfo> bidInfos = auction.getBidInfos();
+        Collections.sort(bidInfos,(a, b)->b.getBid_Price()-a.getBid_Price());
 
-        if(all.size()==0){
+        String firstUserName = bidInfos.get(0).getUserName();
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("firstUserName = " + firstUserName);
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+
+        if(bidInfos.size()==0){
             return "입찰자가 없습니다.";
         }
 
-        Collections.sort(all,(a,b)->b.getBid_Price()-a.getBid_Price());
-        return all.get(0).getUserName();
+        return firstUserName;
     }
 
     /**
@@ -71,6 +74,12 @@ public class AuctionService {
         Collections.sort(bidInfos,(a, b)->b.getBid_Price()-a.getBid_Price());
 
         int first = bidInfos.get(0).getBid_Price();
+        String firstUserName = bidInfos.get(0).getUserName();
+
+        System.out.println("++++++++++++++++++++");
+        System.out.println("bidInfos = " + bidInfos);
+        System.out.println("firstUserName = " + firstUserName);
+        System.out.println("++++++++++++++++++++");
 
         if(price<first+first/10){
             return true;
@@ -177,7 +186,4 @@ public class AuctionService {
 //        Auction auction = auctionTestRepository.findById(Auction_num);
 //
 //    }
-
-
-
 }

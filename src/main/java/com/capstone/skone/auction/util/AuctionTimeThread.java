@@ -16,9 +16,9 @@ import java.util.TimerTask;
 
 public class AuctionTimeThread {
 
+    public AuctionTimeThread(Auction auction, AuctionRepository auctionRepository,String addressTo) {
 
-    public AuctionTimeThread(Auction auction, AuctionRepository auctionRepository,String addressTo, String addressFrom) {
-
+        AuctionService auctionService = new AuctionService(auctionRepository,null);
 
         //String addressFrom;
         TimerTask task = new TimerTask() {
@@ -28,7 +28,7 @@ public class AuctionTimeThread {
                     System.out.println("옥션 종료");
                     System.out.println("String = " + addressTo);
                     MailSender mailSender = new MailSender();
-
+                    String addressFrom = auctionService.get_First_User(auction);
                     mailSender.sendMail(addressTo,addressFrom);
 
                     auctionRepository.deleteById(auction.getAuctionNumber());
@@ -48,8 +48,6 @@ public class AuctionTimeThread {
         Timer timer = new Timer();
 
         timer.schedule(task,delay);
-
     }
-
 
 }
