@@ -4,6 +4,8 @@ import com.capstone.skone.auth.domain.member.Member;
 import com.capstone.skone.auth.dto.MemberDto;
 import com.capstone.skone.auth.infrastructure.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -46,5 +48,10 @@ public class MemberService implements UserDetailsService {
     return memberRepository.findById(userId).get();
   }
 
-
+  //세션에서 닉네입 반
+  public static String currentUserNickname(){
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    Member member = (Member) authentication.getPrincipal();
+    return member.getNickname();
+  }
 }

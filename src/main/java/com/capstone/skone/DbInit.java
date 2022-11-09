@@ -1,56 +1,39 @@
+
 package com.capstone.skone;
 
-import com.capstone.skone.auction.application.AuctionService;
-import com.capstone.skone.auction.domain.Auction;
-import com.capstone.skone.auction.domain.BidInfo;
 import com.capstone.skone.auth.application.MemberService;
-import com.capstone.skone.auth.domain.member.Member;
 import com.capstone.skone.auth.dto.MemberDto;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
+import com.capstone.skone.board.application.BoardService;
+import com.capstone.skone.board.dto.CreateBoardDto;
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class DbInit {
 
-    private final AuctionService auctionService;
     private final MemberService memberService;
+    private final BoardService boardService;
 
-    @PostConstruct
-    private void AuctionInit(){
+    @Bean
+    private void AuctionInit() {
 
         MemberDto memberDto = new MemberDto();
         memberDto.setEmail("1234");
         memberDto.setPassword("1234");
+        memberDto.setNickname("현");
         memberDto.setAuth("ROLE_MEMBER");
 
-        Long memberId = memberService.joinUser(memberDto);
+        MemberDto memberDto2 = new MemberDto();
+        memberDto2.setEmail("123");
+        memberDto2.setPassword("123");
+        memberDto2.setNickname("하림");
+        memberDto2.setAuth("ROLE_MEMBER");
 
-        Member member = memberService.loadUserByUserId(memberId);
+        memberService.joinUser(memberDto);
+        memberService.joinUser(memberDto2);
 
-        for(int i=0;i<85;i++){
-
-            List<BidInfo> arr= new ArrayList<>();
-
-            Auction auction = Auction.builder()
-                    .member(member)
-                    .title("제목" + i)
-                    .content("내용" + i)
-                    .bidInfos(arr)
-                    .build();
-
-            auctionService.createAuction(auction);
-
-            BidInfo bidInfo = new BidInfo();
-            bidInfo.setUserName("구매자"+i);
-            bidInfo.setBid_Price(i*1000);
-            bidInfo.setAuction(auction);
-            arr.add(bidInfo);
-            auctionService.createBidInfo(bidInfo);
-        }
     }
 }

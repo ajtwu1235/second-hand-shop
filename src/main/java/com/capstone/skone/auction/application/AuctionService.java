@@ -1,9 +1,12 @@
+
 package com.capstone.skone.auction.application;
 
 import com.capstone.skone.auction.domain.Auction;
 import com.capstone.skone.auction.domain.BidInfo;
+import com.capstone.skone.auction.dto.AuctionDto;
 import com.capstone.skone.auction.infrastructure.AuctionRepository;
 import com.capstone.skone.auction.infrastructure.BidInfoRepository;
+import com.capstone.skone.auction.util.AuctionTimeThread;
 import com.capstone.skone.auth.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,8 +24,16 @@ public class AuctionService {
     private final AuctionRepository auctionRepository;
     private final BidInfoRepository bidInfoRepository;
 
+
     public void createAuction(Auction auction){
         auctionRepository.save(auction);
+        String addressTo = getSingleAuction(auction.getAuctionNumber()).getMember().getEmail();
+        //String addressFrom = get_First_User(auction);
+        //String addressFrom = "tyto_alba@naver.com";
+
+        AuctionTimeThread auctionTimeThread = new AuctionTimeThread(auction, auctionRepository,addressTo);
+        //AuctionTimeThread auctionTimeThread_From = new AuctionTimeThread(auction, auctionRepository, addressFrom);
+
     }
 
     public Page<Auction> getAllAuction(Pageable pageable){
@@ -32,16 +43,43 @@ public class AuctionService {
     public Auction getSingleAuction(Long id){ return auctionRepository.findById(id).get();}
 
     /**
+     * 1등 입찰자 email 받아오는 메소드
+     */
+    public String get_First_User(Auction auction){
+
+        AuctionDto auctionDto = new AuctionDto(auction);
+
+        List<BidInfo> bidInfos = auction.getBidInfos();
+        Collections.sort(bidInfos,(a, b)->b.getBid_Price()-a.getBid_Price());
+
+        String firstUserName = bidInfos.get(0).getUserName();
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("firstUserName = " + firstUserName);
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+
+        if(bidInfos.size()==0){
+            return "입찰자가 없습니다.";
+        }
+
+        return firstUserName;
+    }
+
+    /**
      입찰이 가능한지 판별하는 메소드
      최소 입찰 제한은..  1등가격 + 10%
      */
     public Boolean isBiding(Auction auction,int price){
 
-
         List<BidInfo> bidInfos = auction.getBidInfos();
         Collections.sort(bidInfos,(a, b)->b.getBid_Price()-a.getBid_Price());
 
         int first = bidInfos.get(0).getBid_Price();
+        String firstUserName = bidInfos.get(0).getUserName();
+
+        System.out.println("++++++++++++++++++++");
+        System.out.println("bidInfos = " + bidInfos);
+        System.out.println("firstUserName = " + firstUserName);
+        System.out.println("++++++++++++++++++++");
 
         if(price<first+first/10){
             return true;
@@ -96,6 +134,7 @@ public class AuctionService {
         auctionRepository.save(auction);
     }
 
+
     /**
      * 1등 입찰 값을 불러오는 메소드, 2등 입찰 값을 불러오는 메소드
      */
@@ -147,7 +186,4 @@ public class AuctionService {
 //        Auction auction = auctionTestRepository.findById(Auction_num);
 //
 //    }
-
-
-
 }

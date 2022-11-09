@@ -1,5 +1,6 @@
 package com.capstone.skone.board.presentaion;
 
+import com.capstone.skone.auth.application.MemberService;
 import com.capstone.skone.board.application.HotDealService;
 import com.capstone.skone.board.domain.Board;
 import com.capstone.skone.board.domain.HotDealBoard;
@@ -38,7 +39,7 @@ public class BoarderController {
 
   @GetMapping("/board")
   public String viewHome() {
-    return "board/board";
+    return "board/board_init";
   }
 
   @PostMapping("/post")
@@ -57,7 +58,7 @@ public class BoarderController {
         }
       }
 
-      String filePath = savePath + "\\" + files.getOriginalFilename();
+      String filePath = savePath + "//" + files.getOriginalFilename();
       files.transferTo(new File(filePath));
 
       CreateFileDto createFileDto = new CreateFileDto();
@@ -67,6 +68,7 @@ public class BoarderController {
 
       String fileName = fileService.saveFile(createFileDto);
       createBoardDto.setFilename(fileName);
+      createBoardDto.setNickname(MemberService.currentUserNickname());
       createBoardDto.setUserEmail(auth.getName());
       boardService.createBoard(createBoardDto);
     } catch (Exception e) {
@@ -78,6 +80,7 @@ public class BoarderController {
   @GetMapping("/board/{id}")
   public String detailBoard(@PathVariable("id") Long id, Model model) {
     DetailBoardDto detail = boardService.getDetailBoard(id);
+    model.addAttribute("nickname", MemberService.currentUserNickname());
     model.addAttribute("detail", detail);
     return "board/board_details";
   }
@@ -101,6 +104,7 @@ public class BoarderController {
   @GetMapping("/hot_deal/{id}")
   public String detailHotDealBoard(@PathVariable("id") Long id, Model model) {
     DetailHotDealBoardDto detail = hotDealService.getDetailHotDealBoard(id);
+    model.addAttribute("nickname", MemberService.currentUserNickname());
     model.addAttribute("detail", detail);
     return "board/hot_deal_board_details";
   }
@@ -123,4 +127,5 @@ public class BoarderController {
     }
     return "redirect:/";
   }
+
 }

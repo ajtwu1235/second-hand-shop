@@ -79,7 +79,6 @@ public class MemberController {
   @PostMapping("/signup")
   public String signup(@ModelAttribute("memberDto") MemberDto memberDto,  HttpServletRequest request)throws Exception {
 
-
     memberService.joinUser(memberDto);
     return "redirect:/user/login";
   }
@@ -109,5 +108,11 @@ public class MemberController {
   @GetMapping("/admin")
   public String goAdmin() {
     return "login/admin";
+  }
+
+  @GetMapping("/nickname")
+  @ResponseBody
+  public String getNickname(){
+    return MemberService.currentUserNickname();
   }
 }

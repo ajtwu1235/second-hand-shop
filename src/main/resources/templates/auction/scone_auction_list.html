@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Auction Page</title>
+    <title>경매 리스트 페이지</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="headers.css" rel="stylesheet">
 
@@ -84,17 +84,18 @@
 </head>
 
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!--부트스트랩 아이콘 문단-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!--부트스트랩 아이콘 문단-->
 
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="bootstrap" viewBox="0 0 118 94">
 
-            <title>Bootstrap</title>
-
+            <!--
             <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z">
             </path>
+        -->
         </symbol>
 
         <symbol id="home" viewBox="0 0 16 16">
@@ -108,7 +109,7 @@
                 d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z">
             </path>
             <path fill-rule="evenodd"
-                d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z">
+                  d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z">
             </path>
         </symbol>
 
@@ -118,35 +119,29 @@
             </path>
         </symbol>
 
-        <symbol id="people-circle" viewBox="0 0 16 16">
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
-            <path fill-rule="evenodd"
-                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z">
-            </path>
-        </symbol>
-
-        <symbol id="grid" viewBox="0 0 16 16">
+        <!--경매 아이콘 불러오기-->
+        <symbol id="auction1" viewBox="0 0 16 16">
             <path
-                d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z">
+                d="M3.1.7a.5.5 0 0 1 .4-.2h9a.5.5 0 0 1 .4.2l2.976 3.974c.149.185.156.45.01.644L8.4 15.3a.5.5 0 0 1-.8 0L.1 5.3a.5.5 0 0 1 0-.6l3-4zm11.386 3.785-1.806-2.41-.776 2.413 2.582-.003zm-3.633.004.961-2.989H4.186l.963 2.995 5.704-.006zM5.47 5.495 8 13.366l2.532-7.876-5.062.005zm-1.371-.999-.78-2.422-1.818 2.425 2.598-.003zM1.499 5.5l5.113 6.817-2.192-6.82L1.5 5.5zm7.889 6.817 5.123-6.83-2.928.002-2.195 6.828z">
             </path>
         </symbol>
     </svg>
 
     <!--상단 메인 게시판 네비게이션바-->
     <header>
-        <div class="px-3 py-2 text-bg-dark">
+        <div class="px-3 py-2" style="background-color: #FFC107;">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <a href="/"
-                        class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                            <use xlink:href="#bootstrap"></use>
-                        </svg>
+
+                    <!--스코네 로고-->
+                    <a class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                        <button class="btm_image" style="background-color:transparent; border:none;"><img
+                            th:src="|@{/static/img/skone_slime.png}|"></button>
                     </a>
 
                     <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                         <li>
-                            <a href="#" class="nav-link text-secondary">
+                            <a href="/" class="nav-link text-white">
                                 <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                     <use xlink:href="#home"></use>
                                 </svg>
@@ -154,15 +149,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link text-white">
-                                <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                                    <use xlink:href="#speedometer2"></use>
-                                </svg>
-                                채팅
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="nav-link text-white">
+                            <a href="/hot_deal" class="nav-link text-white">
                                 <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                     <use xlink:href="#table"></use>
                                 </svg>
@@ -170,19 +157,11 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link text-white">
+                            <a href="/auctions" th:onclick="|location.href='@{/auctions}'|" class="nav-link text-white">
                                 <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                                    <use xlink:href="#grid"></use>
+                                    <use xlink:href="#auction1"></use>
                                 </svg>
                                 경매
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="nav-link text-white">
-                                <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                                    <use xlink:href="#people-circle"></use>
-                                </svg>
-                                Customers
                             </a>
                         </li>
                     </ul>
@@ -191,81 +170,138 @@
         </div>
         <div class="px-3 py-2 border-bottom mb-3">
             <div class="container d-flex flex-wrap justify-content-center">
-                <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
-                    <input type="search" class="form-control" placeholder="물품 검색" aria-label="Search">
-                </form>
+                <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search" style="margin-top: 38px;">
 
+                </form>
                 <div class="text-end">
-                    <button type="button" th:onclick="|location.href='@{/login}'|" class="btn btn-light text-dark me-2">로그인</button>
-                    <button type="button" th:onclick="|location.href='@{/members/add}'|" class="btn btn-primary">회원가입</button>
                 </div>
             </div>
+        </div>
         </div>
     </header>
 
     <body>
-        <div style="width: 1000px; height:100px; margin-left:auto; 
-        margin-right:auto; margin-top: 50px;">
-            <!--경매 전체 리스트-->
-<!--        //Form 하나생성-->
-            <form  action="/auctions/del" th:method="post" >
-                <input
-                        type="hidden"
-                        th:name="${_csrf.parameterName}"
-                        th:value="${_csrf.token}"
-                />
+    <div style="width: 1000px; height:100px; margin-left:auto;
+        margin-right:auto; margin-top: 50px; border-radius: 0%;">
+        <!--경매 전체 리스트-->
+        <!--        //Form 하나생성-->
+        <form action="/auctions/del" th:method="post">
             <table class="table table-bordered">
                 <thead class="table table-light">
-                    <tr>
-                        <th scope="col">선택</th>
-                        <th scope="col">번호</th>
-                        <th scope="col">상품 이름</th>
-                        <th scope="col">판매자</th>
-                        <th scope="col">게시일</th>
-                    </tr>
+                <tr>
+                    <th scope="col">선택</th>
+                    <th scope="col">번호</th>
+                    <th scope="col">상품 이름</th>
+                    <th scope="col">판매자</th>
+                    <th scope="col">게시일</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="auction:${auctions}"><!--href태그 값을 통해 텍스트를 링크 경로 설정-->
-                        <td>
-<!--                             name 과 ID설정-->
-                            <input class="form-check-input" type="checkbox" name ="auc_list" th:value="${auction.auctionId}" id="ListCheckbox">
-                        </td>
-                        <th th:text="${auction.auctionId}" scope="row">1</th>
-                        <td><a href="url:" th:href="@{/auction/{id}(id=${auction.auctionId})}" th:text="${auction.itemName}" style="color: black; text-decoration: none;">마인크래프트 무드등</a></td>
-                        <td><a href="url:" th:href="@{/auction/{id}(id=${auction.auctionId})}" th:text="${auction.userName}" style="color: black; text-decoration: none;">수영하는 철새</a></td>
-                        <td th:text="${#strings.substring(auction.left_time,0,19)}" href="...">2022/02/22</td>
-                    </tr>
+                <tr th:each="auction:${auctions}">
+                    <!--href태그 값을 통해 텍스트를 링크 경로 설정-->
+                    <td>
+                        <!--                             name 과 ID설정-->
+                        <input class="form-check-input" type="checkbox" name="auc_list"
+                               th:value="${auction.auctionId}" id="ListCheckbox">
+                    </td>
+                    <th th:text="${auction.auctionId}" scope="row">1</th>
+                    <td><a href="url:" th:href="@{/auction/{id}(id=${auction.auctionId})}"
+                           th:text="${auction.itemName}" style="color: black; text-decoration: none;">마인크래프트
+                        무드등</a></td>
+                    <td><a href="url:" th:href="@{/auction/{id}(id=${auction.auctionId})}"
+                           th:text="${auction.userName}" style="color: black; text-decoration: none;">수영하는
+                        철새</a></td>
+                    <td th:text="${#strings.substring(auction.left_time,0,19)}" href="...">2022/02/22</td>
+                </tr>
                 </tbody>
             </table>
             <div style="width: 1000px;">
-                <button type="button"  th:onclick="|location.href='@{/auction/reg}'|" class="btn btn btn-outline-secondary btn-sm">경매 상품 등록</button>
-                <button type="submit" class="btn btn btn-outline-secondary btn-sm">경매 상품 삭제</button>
+                <button type="button" th:onclick="|location.href='@{/auction/reg}'|"
+                        class="btn btn text-white" style="background-color: #FFC107;">경매 상품 등록</button>
+                <button type="submit"
+                        class="btn btn text-white"style="background-color: #FFC107;">경매 상품 삭제</button>
             </div>
-            </form>
-  <!--            폼종료-->
             <!--하단 페이지 넘기는 태그 (페이지네이션)-->
-            <div class="Page_num">
+            <div class="Page_num" style="margin-top: 50px;">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         <li class="page-item">
                             <!--href 태그에서 각 페이지로 설정-->
                             <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
+                                <span aria-hidden="true" style="color: #FFC107;">&laquo;</span>
                             </a>
                         </li>
-                        <li class="page-item"><a class="page-link" th:href="@{?page=0}" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" th:href="@{?page=1}"href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" th:href="@{?page=2}"href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" th:href="@{?page=3}"href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" th:href="@{?page=4}"href="#">5</a></li>
+                        <li class="page-item"><a class="page-link" style="color: #FFC107;" th:href="@{?page=0}"
+                                                 href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" style="color: #FFC107;" th:href="@{?page=1}"
+                                                 href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" style="color: #FFC107;" th:href="@{?page=2}"
+                                                 href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" style="color: #FFC107;" th:href="@{?page=3}"
+                                                 href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" style="color: #FFC107;" th:href="@{?page=4}"
+                                                 href="#">5</a></li>
                         <li class="page-item">
                             <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
+                                <span aria-hidden="true" style="color: #FFC107;">&raquo;</span>
                             </a>
                         </li>
                     </ul>
                 </nav>
             </div>
-        </div>
+        </form>
+    </div>
 
     </body>
+
+    <!--            폼종료-->
+    <!--경매 상품 등록/삭제 및 페이지 네이션 footer 안으로 보기 좋게 분리해놨음-->
+    <footer>
+
+
+
+        <!--밑에 있는 문장들은 하림이가 사용하는 메인 페이지에서 사용하는 페이징인데 쓸만한것 같아서 넣어봤어
+                경로는 바꿔야 될꺼야/디자인은 물론 바꿔놨어-->
+
+        <!--하단 페이지 넘기는 태그 페이징(페이지네이션) span쪽에 색상 변경[프론트 부분 / 무시 가능]-->
+        <!--<div class="Page_num">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" th:href="|@{/(page=1)}|" aria-label="First">
+                                    <span aria-hidden="true" style="color: #FFC107;">First</span>
+                                </a>
+                            </li>
+
+                            <li class="page-item" th:class="${mainBoard.first} ? 'disabled'">
+                                <a class="page-link"
+                                    th:href="|${mainBoard.first} ? '#' :@{/(page=${mainBoard.number})}|"
+                                    aria-label="Previous">
+                                    <span aria-hidden="true">&lt;</span>
+                                </a>
+                            </li>
+
+                            <li class="page-item" th:each="page: ${#numbers.sequence(start, last)}"
+                                th:class="${page == mainBoard.number} ? 'active'">
+                                <a class="page-link" th:text="${page}" th:href="|@{/(page=${page})}|"
+                                    style="color: black;"></a>
+                            </li>
+
+                            <li class="page-item" th:class="${mainBoard.last} ? 'disabled'">
+                                <a class="page-link"
+                                    th:href="|${mainBoard.last} ? '#' : @{/(page=${mainBoard.number+1})}|"
+                                    aria-label="Next">
+                                    <span aria-hidden="true">&gt;</span>
+                                </a>
+                            </li>
+
+                            <li class="page-item">
+                                <a class="page-link" th:href="|@{/(page=${mainBoard.totalPages})}|" aria-label="Last">
+                                    <span aria-hidden="true" style="color: #FFC107;">Last</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>-->
+    </footer>
+</html>

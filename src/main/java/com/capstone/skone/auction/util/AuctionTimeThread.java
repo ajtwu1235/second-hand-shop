@@ -1,7 +1,11 @@
 package com.capstone.skone.auction.util;
 
+import com.capstone.skone.auction.application.AuctionService;
 import com.capstone.skone.auction.domain.Auction;
 import com.capstone.skone.auction.infrastructure.AuctionRepository;
+import com.capstone.skone.mail.MailSender;
+import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -9,16 +13,30 @@ import java.util.TimerTask;
 /**
  * 새롭게 고안한 Auction 종료시간 체크
  */
+
 public class AuctionTimeThread {
 
+    public AuctionTimeThread(Auction auction, AuctionRepository auctionRepository,String addressTo) {
 
-    public AuctionTimeThread(Auction auction, AuctionRepository auctionRepository) {
+        AuctionService auctionService = new AuctionService(auctionRepository,null);
+
+        //String addressFrom;
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                System.out.println("옥션 종료");
-                auctionRepository.deleteById(auction.getAuctionNumber());
+                try {
+                    System.out.println("옥션 종료");
+                    System.out.println("String = " + addressTo);
+                    MailSender mailSender = new MailSender();
+                    String addressFrom = auctionService.get_First_User(auction);
+                    mailSender.sendMail(addressTo,addressFrom);
 
+                    auctionRepository.deleteById(auction.getAuctionNumber());
+
+                }
+                catch (EmptyResultDataAccessException e){
+                    System.out.println("이미 종료된 경매글입니다. = " + e);
+                }
             }
         };
 
@@ -30,8 +48,6 @@ public class AuctionTimeThread {
         Timer timer = new Timer();
 
         timer.schedule(task,delay);
-
     }
-
 
 }

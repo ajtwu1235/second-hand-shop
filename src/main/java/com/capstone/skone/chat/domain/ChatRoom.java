@@ -1,20 +1,25 @@
 package com.capstone.skone.chat.domain;
 
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
 
-@RedisHash
+@Entity
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChatRoom implements Serializable {
+public class ChatRoom {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String roomName;
+
     private String roomId;
 }
